@@ -1,0 +1,358 @@
+## Global settings affect all services
+global:
+  ## Whether to used the combined db - if this is true all the databases used
+  ## by magda will be consolidated into a single pod. If it's false, they'll
+  ## all run in separate pods unless some managed postgres solution (e.g.
+  ## useCloudSql) is specified elsewhere.
+  ## Running in separate pods scales better, but requires a lot of resources
+  useCombinedDb: true
+  ## Whether to use the Google Cloud SQL managed postgres solution. Only set 
+  ## this to true if you already have cloud sql set up
+  # useCloudSql: false
+
+  ## The external URL of the installation, e.g. "https://search.data.gov.au".
+  ## This is used in a number of places, including linking back to the site
+  ## from emails, creating a absolute sitemap URL for robots.txt, etc.
+  externalUrl: https://example.com
+
+  ## How to handle rolling updates during a deployment. If set to 0, kubernetes
+  ## will happily take down pods while it replaces them (useful for dev setups).
+  ## If set to 1, kubernetes will make sure one pod is available to take requests
+  ## during upgrades. 0 by default.
+  # rollingUpdate:
+  #   maxUnavailable: 0
+
+  image:
+    ## What tag of the magda images to get. This should usually be the latest
+    ## release of Magda - look at https://github.com/magda-io/magda/releases/latest
+    tag: v0.0.45
+    ## The docker repository to get the images from - defaults to the official
+    ## data61 docker hub repo
+    # repository: data61
+    ## The imagePullPolicy to use for images - generally unless you're actively
+    ## trying to track development this should be "IfNotPresent", otherwise if 
+    ## you are it can be "Always". Defaults to "IfNotPresent"
+    # pullPolicy: IfNotPresent
+    ## Kubernetes secret to use if you're fetching images from a private repository
+    # imagePullSecret: ""
+
+  ## Whether to expose the node ports of the pods in the cluster - useful for
+  ## development, because it allows you to connect directly to pods without using
+  ## kubectl proxy
+  # exposeNodePorts: false
+
+  ## Whether to enable kubernetes liveness probes - these continually hit pods in
+  ## order to see whether they're still alive and restart them upon too many failures.
+  ## This is essential for prod, but tends to create a lot of overhead in development
+  # enableLivenessProbes: false
+
+  ## The admin to use as the root admin user in the database. Defaults to the very first
+  ## uuidv4
+  # defaultAdminUserId: "00000000-0000-4000-8000-000000000000"
+  
+  ## Default log level to use across the project. Currently this only affects scala-based
+  ## services
+  # logLevel: INFO
+
+  ## Whether to disable database authentication - useful in development, a very very bad
+  ## idea in production
+  # noDbAuth: false
+
+## Tags allow for services to be turned on and off on the fly... e.g. if you don't need
+## to send emails, turn the correspondence-api off
+tags:
+  ## "all" is a shortcut which turns on all services except sleuthers.
+  all: true
+
+  ## General services. Note that if you are using combined-db, you need to set both 
+  ## combined-db and the databases that you are using (e.g. authorization-db) to true.
+  ## You can find explanations of what each of these are below
+  
+  # authorization-api: true
+  # authorization-db: true
+  # cloud-sql-proxy: true
+  # combined-db: true
+  # content-db: true
+  # content-api: true
+  # correspondence-api: true
+  # elasticsearch: true
+  # gateway: true
+  # indexer: true
+  # preview-map: true
+  # registry-api: true
+  # registry-db: true
+  # search-api: true
+  # session-db: true
+  # web-server: true
+
+  ## Whether to use an ingress, which is necessary for HTTPS and using the Google CDN with
+  ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
+  ## through a Kubernetes LoadBalancer service
+  # ingress: false
+  
+  ## Sleuthers, which listen to changes in the registry and add extra metadata
+  sleuther-broken-link: true
+  sleuther-linked-data-rating: true
+  sleuther-visualization: true
+  sleuther-format: true
+
+## Settings for the ingress
+# ingress:
+  ## The hostname of the site
+  # hostname: search.data.gov.au
+  ## The name of the external ip to use - used when using the GCE ingress type
+  # ipName: search-data-gov-au-ingress
+  ## The class of the ingress - if running on GKE, gce will automatically work, otherwise you
+  ## can use an nginx ingress which requires extra setup
+  # ingressClass: gce
+  ## Whether to enable TLS - requires a TLS secret to be set: 
+  ## https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
+  # enableTls: false
+  ## Name of the tls secret, defaults to "magda-cert-tls"
+  # tlsSecretName: "magda-cert-tls"
+  ## Domains to attempt to obtain an SSL certificate for from let's encrypt, if using certmanager
+  ## (requires extra setup)
+  # domains:
+  #   - example.com
+
+## Below are individual settings for services. All services can have their image customised as per
+## the global options under "global" like so:
+# servicename:
+  # image:
+    # tag: vx.x.x
+    # pullPolicy: IfNotPresent
+    # imagePullSecret: ""
+
+
+## They can also have their resource requirements customised individually as per
+## https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ like so:
+# servicename:
+  # resources:
+    # requests:
+      # cpu: 0m
+      # memory: 0Mi
+    # limits:
+      # cpu: 0m
+      # memory: 0Mi
+
+## Furthermore, all the stateful sets (es-data and anything ending in -db) can have the volume
+## that they claim customised like so:
+# databasename-db:
+  # data:
+    ## The amount of storage to allocate - be generous because it's often not easy to resize
+    # storage: 200Gi
+    ## The storage class - needs to correspond to a storage class configured in kubernetes
+    # storageClass: "ssd"
+
+## Settings for the apidocs server, which serves the documentation for the api from
+## /api/v0/apidocs/index.html
+# apidoc-server:
+
+## Settings for the authorization-api, which determines what each user's permissions are:
+# authorization-api:
+
+## Settings for the authorization-db, which serves the authorization-api
+# authorization-db:
+
+## A pod for proxying to Google Cloud SQL, the GCE managed database service.
+# cloud-sql-proxy:
+
+## A pod that combines all the databases if global.useCombinedDb is set to true
+# combined-db:
+
+## A pod that controls the content in magda's UI
+# content-api:
+
+## The database behind content-api
+# content-db:
+
+## A service that renders emails and forwards them to an SMTP server
+# correspondence-api:
+  ## The default recipient to email when there's no other choice - e.g. when asking a
+  ## question about a dataset for which there's no organisational email
+  defaultRecipient: "test@example.com"
+
+  ## The hostname of the SMTP server to use - the password should be in a secret
+  smtpHostname: "smtp.mailgun.org"
+
+  ## The SMTP port to use - beware, default SMTP ports are blocked on most cloud 
+  ## providers
+  smtpPort: 2525
+
+
+elasticsearch:
+  production: true
+  client:
+    replicas: 2
+    heapSize: 900m
+    pluginsInstall: "repository-gcs"
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1500Mi
+  data:
+    heapSize: 3000m
+    pluginsInstall: "repository-gcs"
+    storageClass: "fast-ssd"
+    resources:
+      requests:
+        cpu: 800m
+        memory: 5000Mi
+
+# gateway:
+  service:
+  type: LoadBalancer
+
+global:
+  useCombinedDb: false
+  useCloudSql: true
+  externalUrl: https://search.data.gov.au
+  image:
+    pullPolicy: IfNotPresent
+    tag: "0.0.44-RC1"
+  enableLivenessProbes: true
+tags:
+  all: false
+
+  authorization-api: true
+  authorization-db: true
+  elasticsearch: true
+  gateway: true
+  indexer: true
+  preview-map: true
+  registry-api: true
+  registry-db: true
+  search-api: true
+  session-db: true
+  sleuther-broken-link: true
+  sleuther-linked-data-rating: true
+  sleuther-visualization: true
+  sleuther-format: true
+  web-server: true
+  correspondence-api: true
+  ingress: true
+
+ingress:
+  hostname: search.data.gov.au
+  ipName: search-data-gov-au-ingress
+  ingressClass: gce
+  enableTls: true
+  domains:
+  - search.data.gov.au
+  - letest.search.data.gov.au
+gateway:
+  type: LoadBalancer
+  loadBalancerIP: "35.189.8.102"
+  ckanRedirectionDomain: "ckan.data.gov.au"
+  autoscaler:
+    minReplicas: 2
+    maxReplicas: 4
+  auth:
+    facebookClientId: "173073926555600"
+    googleClientId: "275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com"
+  csp:
+    directives:
+      reportUri: https://sdga.report-uri.com/r/d/csp/enforce
+  helmet:
+    hsts:
+      maxAge: 31536000
+      includeSubdomains: true
+      preload: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+preview-map:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+registry-api:
+  logLevel: INFO
+  livenessProbe:
+    timeoutSeconds: 3
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1000Mi
+authorization-api:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+search-api:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 500Mi
+    limits:
+      cpu: 1000m
+      memory: 1000Mi
+web-server:
+  autoscaler:
+    minReplicas: 2
+    maxReplicas: 4
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  disableAuthenticationFeatures: true
+  fallbackUrl: "https://data.gov.au"
+sleuther-broken-link:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+sleuther-linked-data-rating:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+sleuther-visualization:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+sleuther-format:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+indexer:
+  elasticsearch:
+    shards: 2
+    replicas: 4
+#  useGcsSnapshots: true
+#  gcsSnapshotBucket: "magda-es-snapshots"
+#  gcsSnapshotServiceAccount: "_default"
+  resources:
+    requests:
+      cpu: 200m
+      memory: 200Mi
+cloud-sql-proxy:
+  replicas: 2
+  instanceConnectionName: terriajs:australia-southeast1:magda-prod
+correspondence-api:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  defaultRecipient: "data@digital.gov.au"
+  smtpHostname: "smtp.mailgun.org"
+  smtpPort: 2525

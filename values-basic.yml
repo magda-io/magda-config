@@ -1,0 +1,25 @@
+global:
+  useCombinedDb: true
+  externalUrl: https://dev.magda.io
+  image:
+    repository: registry.gitlab.com/magda-data/magda/data61
+    pullPolicy: IfNotPresent
+    tag: master
+
+tags:
+  all: true
+  ingress: false
+  
+  sleuther-broken-link: true
+  sleuther-linked-data-rating: true
+  sleuther-visualization: true
+  sleuther-format: true
+
+correspondence-api:
+  defaultRecipient: "magda-test@googlegroups.com"
+  smtpHostname: "smtp.mailgun.org"
+  smtpPort: 2525
+
+gateway:
+  service:
+    type: LoadBalancer
