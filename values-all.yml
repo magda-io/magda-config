@@ -30,7 +30,7 @@ global:
     tag: v0.0.45
     ## The docker repository to get the images from - defaults to the official
     ## data61 docker hub repo
-    # repository: data61
+    repository: data61
     ## The imagePullPolicy to use for images - generally unless you're actively
     ## trying to track development this should be "IfNotPresent", otherwise if 
     ## you are it can be "Always". Defaults to "IfNotPresent"
@@ -147,6 +147,35 @@ tags:
     ## The storage class - needs to correspond to a storage class configured in kubernetes
     # storageClass: "ssd"
 
+## Database pods (anything ending in -db) can also be configured with streaming backups via
+## WAL-E (https://github.com/wal-e/wal-e)
+# databasename-db:
+  # waleBackup:
+    ## The method to use for backup - either set to WAL (write-ahead-log) or leave blank
+    ## for no backups
+    # method: WAL
+
+    ## The time (in the server's timezone) to do a full backup of the system
+    # executionTime: 03:00
+
+    ## Whether to only read backups but not write them
+    # readOnly: false
+    
+    ## The WAL-E recovery mode to use - generally leave this out, or set to "immediate" for
+    ## the quickest possible recovery at the expense of some data loss
+    # recoveryMode:
+
+    ## Settings for pushing backups to Google Storage 
+    ## The prefix of the place to push the backups
+    # gsPrefix: "gs://magda-postgres-backups-asia/dev"
+
+    ## Credentials for authenticating
+    # googleApplicationCreds:
+    ## The secret to look for the credentials json file in
+    #   secretName: storage-account-credentials
+    ## The filename of the credentials json mounted in the secret
+    #   fileName: TerriaJS-5e042b649f8a.json
+
 ## Settings for the apidocs server, which serves the documentation for the api from
 ## /api/v0/apidocs/index.html
 # apidoc-server:
@@ -228,6 +257,8 @@ gateway:
 
   ## Configure the autoscaler
   # autoscaler:
+    ## whether to enable autoscaling
+    # enabled: false
     ## The minimum number of replicas to have
     # minReplicas: 2
     ## The maximum number of replicas to have
