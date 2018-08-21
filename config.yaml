@@ -154,9 +154,9 @@ connectors:
 ## Otherwise using the built-in Kubernetes LoadBalancer works ok.
 # ingress:
   ## The hostname of the site
-  # hostname: search.data.gov.au
+  # hostname: example.com
   ## The name of the external ip to use - used when using the GCE ingress type
-  # ipName: search-data-gov-au-ingress
+  # ipName: 
   ## The class of the ingress - if running on GKE, gce will automatically work, otherwise you
   ## can use "nginx" which requires extra setup
   # ingressClass: gce
@@ -270,7 +270,7 @@ correspondence-api:
 ## data nodes, master nodes and client nodes.
 # elasticsearch:
   ## Whether to use client and master nodes, or just use data nodes.
-  # production: true
+  # production: false
 
   ## All three kinds of nodes can be customised with these settings like so:
   # nodetype:
