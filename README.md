@@ -1,18 +1,25 @@
-# Magda Boilerplate
+# Magda Config
 
 This is a simple boilerplate that allows you to quickly set up a Magda instance.
 
 # Getting Started
-Before you start you need a kubernetes cluster, kubectl and helm.
+Before you start you need to get A Kubernetes Cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop) on MacOS or Windows, or [Minikube](https://kubernetes.io/docs/setup/minikube/) on Linux. Either way make sure the VM has at least 2 CPUs and 4gb of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
 
-1. Fork this repository - this means you can make your own customisations, but still pull in updates.
+1. Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and [helm](https://docs.helm.sh/using_helm/).
 
-2. `git clone` it to your local machine open a terminal in the directory
+2. Fork this repository - this means you can make your own customisations, but still pull in updates.
 
-3. Look at config.yml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+3. `git clone` it to your local machine open a terminal in the directory
 
-4. Run the create secrets script in a command line and follow the prompts
+4. Look at config.yml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+
+5. Make sure your `kubectl` is connected to your kubernetes cluster and install helm
+```bash
+helm init
 ```
+
+6. Run the create secrets script in a command line and follow the prompts
+```bash
     ./create-secrets/index-linux
     # OR
     ./create-secrets/index-macos
@@ -20,7 +27,7 @@ Before you start you need a kubernetes cluster, kubectl and helm.
     create-secrets\index.win.exe
 ```
 Output should look something like so:
-```
+```bash
 magda-create-secrets tool version: 0.0.47-0
 ? Are you creating k8s secrets for google cloud or local testing cluster? Local Testing Kubernetes Cluster
 ? Which local k8s cluster environment you are going to connect to? docker
@@ -41,19 +48,19 @@ Successfully created secret `auth-secrets` in namespace `default`.
 All required secrets have been successfully created!
 ```
 
-5. Add the magda chart repo to helm
-```
+6. Add the magda chart repo to helm
+```bash
 helm repo add magda-io https://charts.magda.io
 ```
 
-6. Install magda
-```
+7. Install magda
+```bash
 helm upgrade magda magda-io/magda --wait --timeout 30000 --install -f config.yaml
 ```
 
 This will take a while for it to get everything set up. If you want to watch progress, run `kubectl get pods -w` in another terminal.
 
-7. Once helm is finished, run `kubectl get services -w` and wait for `gateway` to receive an external IP. It'll look something like this:
+8. Once helm is finished, run `kubectl get services -w` and wait for `gateway` to receive an external IP. It'll look something like this:
 
 ```
 gateway                           LoadBalancer   10.102.57.74     123.456.789.123     80:31519/TCP        1m
