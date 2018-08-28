@@ -27,8 +27,8 @@ helm init
     create-secrets\index.win.exe
 ```
 Output should look something like so:
-```bash
-magda-create-secrets tool version: 0.0.47-0
+```
+magda-create-secrets tool 
 ? Are you creating k8s secrets for google cloud or local testing cluster? Local Testing Kubernetes Cluster
 ? Which local k8s cluster environment you are going to connect to? docker
 ? Do you need to access SMTP service for sending data request email? YES

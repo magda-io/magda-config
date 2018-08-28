@@ -65,30 +65,30 @@ global:
 ## to send emails, turn the correspondence-api off
 tags:
   ## "all" is a shortcut which turns on all services except sleuthers.
-  all: false # false until 0.0.47
+  all: true 
 
   ## General services. Note that if you are using combined-db, you need to set both 
   ## combined-db and the databases that you are using (e.g. authorization-db) to true.
   ## You can find explanations of what each of these are below
   
-  apidocs-server: false # disabled until 0.0.47
-  authorization-api: true
-  authorization-db: true
-  cloud-sql-proxy: true
-  combined-db: true
-  content-db: false # disabled until 0.0.47
-  content-api: false # disabled until 0.0.47
-  correspondence-api: true
-  elasticsearch: true
-  gateway: true
-  indexer: true
-  preview-map: true
-  registry-api: true
-  registry-db: true
-  search-api: true
-  session-db: true
-  web-server: true
-  connectors: true
+  # apidocs-server: true
+  # authorization-api: true
+  # authorization-db: true
+  # cloud-sql-proxy: true
+  # combined-db: true
+  # content-db: true
+  # content-api: true
+  # correspondence-api: true
+  # elasticsearch: true
+  # gateway: true
+  # indexer: true
+  # preview-map: true
+  # registry-api: true
+  # registry-db: true
+  # search-api: true
+  # session-db: true
+  # web-server: true
+  # connectors: true
 
   ## Whether to use an ingress, which is necessary for HTTPS and using the Google CDN with
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
