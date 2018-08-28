@@ -24,7 +24,7 @@ global:
   # rollingUpdate:
   #   maxUnavailable: 0
 
-  image:
+  #image:
     ## What tag of the magda images to get. Look at 
     ## for versions. https://github.com/magda-io/magda/releases/latest.
     ## By default this is the same version as the helm chart.
