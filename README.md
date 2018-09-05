@@ -11,7 +11,7 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 3. `git clone` it to your local machine open a terminal in the directory
 
-4. Look at config.yml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+4. Look at config.yaml and make sure to customise the uncommented lines. Everything else can be left as default for now.
 
 5. Make sure your `kubectl` is connected to your kubernetes cluster and install helm
 ```bash
@@ -68,6 +68,6 @@ This will take a while for it to get everything set up. If you want to watch pro
 gateway                           LoadBalancer   10.102.57.74     123.456.789.123     80:31519/TCP        1m
 ```
 
-At this point you should be able to go to http://<external ip> in your browser and see the Magda UI. Note that the search won't work until it's finished indexing regions - to see the progress of this, run `kubectl logs -f -lservice=indexer`. Unless you've got a lot of processing power this will take quite a while - sorry! We're working on making it better.
+At this point you should be able to go to `http://<external ip>` in your browser and see the Magda UI. Note that the search won't work until it's finished indexing regions - to see the progress of this, run `kubectl logs -f -lservice=indexer`. Unless you've got a lot of processing power this will take quite a while - sorry! We're working on making it better.
 
 By default, data.gov.au will be crawled on startup so you'll start with some data.
