@@ -15,7 +15,7 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 5. Make sure your `kubectl` is connected to your kubernetes cluster and install helm
 ```bash
-helm init
+helm init --service-account tiller
 ```
 
 6. Run the create secrets script in a command line and follow the prompts
