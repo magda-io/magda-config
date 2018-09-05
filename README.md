@@ -62,7 +62,7 @@ helm upgrade magda magda-io/magda --wait --timeout 30000 --install -f config.yam
 
 This will take a while for it to get everything set up. If you want to watch progress, run `kubectl get pods -w` in another terminal.
 
-8. Once helm is finished, run `kubectl get services -w` and wait for `gateway` to receive an external IP. It'll look something like this:
+8. Once helm is finished, run `kubectl get services -w` and wait for `gateway` to receive an external IP. It'll look something like this on kubectl or docker for desktop. **Note that minikube doesn't support this**, you'll just have to run `minikube ip` and keep refreshing it with the node port below until it comes up.
 
 ```
 gateway                           LoadBalancer   10.102.57.74     123.456.789.123     80:31519/TCP        1m
