@@ -391,6 +391,9 @@ gateway:
   ## banner allowing people to go back if they don't like the new system.
   # fallbackUrl: "https://data.gov.au"
 
+  ## The search score after which to show a "suggest a dataset" form
+  # datasetSearchSuggestionScoreThreshold: 65
+
 ## Settings for the broken link minion, which crawls URLs of distributions in order
 ## to determine whether they're still available.
 # minion-broken-link:
