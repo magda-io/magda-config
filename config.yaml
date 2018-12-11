@@ -342,7 +342,10 @@ gateway:
   # enableAuthEndpoint: false
 
   ## Redirect HTTP urls to HTTPs urls
-  enableHttpsRedirection: false
+  # enableHttpsRedirection: false
+
+  ## Turn on HTTP basic authentication - this uses secrets created by the create-secret script
+  # enableWebAccessControl: false
 
 ## Configures the service that puts datasets and organisations into elasticsearch
 # indexer:
