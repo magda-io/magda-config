@@ -50,6 +50,12 @@ Successfully created secret `auth-secrets` in namespace `default`.
 All required secrets have been successfully created!
 ```
 
+**Optional:** If you're going to be triggering connector jobs from the admin-api (used by the admin UI), create the role binding this needs:
+
+```bash
+kubectl apply -f role-binding.yaml
+```
+
 6. Add the magda chart repo to helm
 ```bash
 helm repo add magda-io https://charts.magda.io
