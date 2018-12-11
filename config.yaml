@@ -434,4 +434,4 @@ gateway:
 
 # Settings for the admin API, which allows for changes to be made to the magda
 # installation at runtime... e.g. creating new connector jobs
-admin-api:
+# admin-api:
