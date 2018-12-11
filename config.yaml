@@ -71,6 +71,7 @@ tags:
   ## combined-db and the databases that you are using (e.g. authorization-db) to true.
   ## You can find explanations of what each of these are below
 
+  # admin-api: true
   # apidocs-server: true
   # authorization-api: true
   # authorization-db: true
@@ -427,6 +428,10 @@ gateway:
 ## based off the availability, license and format of a dataset
 # minion-linked-data-rating:
 
-## Settings for teh visualization minion, which looks at tabular data in order to
+## Settings for the visualization minion, which looks at tabular data in order to
 ## determine which columns can be charted.
 # minion-visualization:
+
+# Settings for the admin API, which allows for changes to be made to the magda
+# installation at runtime... e.g. creating new connector jobs
+admin-api:
