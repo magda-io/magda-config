@@ -63,7 +63,7 @@ helm repo add magda-io https://charts.magda.io
 
 7. Install magda
 ```bash
-helm upgrade magda magda-io/magda --wait --timeout 30000 --install -f config.yaml --devel
+helm upgrade magda magda-io/magda --wait --timeout 30000 --install -f config.yaml
 ```
 
 This will take a while for it to get everything set up. If you want to watch progress, run `kubectl get pods -w` in another terminal.
@@ -77,3 +77,15 @@ gateway                           LoadBalancer   10.102.57.74     123.456.789.12
 At this point you should be able to go to `http://<external ip>` in your browser and see the Magda UI. Note that the search won't work until it's finished indexing regions - to see the progress of this, run `kubectl logs -f -lservice=indexer`. Unless you've got a lot of processing power this will take quite a while - sorry! We're working on making it better.
 
 By default, data.gov.au will be crawled on startup so you'll start with some data.
+
+# To update
+1. Merge the latest from this repository into yours.
+2. Run:
+```bash
+helm repo update
+```
+
+3. Run:
+```
+helm upgrade magda magda-io/magda --wait --timeout 30000 --install -f config.yaml --version=<the latest version>
+```
