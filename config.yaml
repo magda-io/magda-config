@@ -60,6 +60,12 @@ global:
   ## Whether to disable database authentication - useful in development, a very very bad
   ## idea in production
   # noDbAuth: false
+  
+  ## Whether to give the pods priority classes - these ensure that essential pods like
+  ## ElasticSearch, Databases and the Gateway are schedules ahead of less essential pods
+  ## like minions, but tend to cause problems if you're running Magda over multiple
+  ## namespaces. Make sure that the priorities tag is true if you turn this on.
+  # enablePriorityClass: true
 
 ## Tags allow for services to be turned on and off on the fly... e.g. if you don't need
 ## to send emails, turn the correspondence-api off
@@ -95,6 +101,9 @@ tags:
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
   ## through a Kubernetes LoadBalancer service
   # ingress: false
+
+  ## Priority classes - see explanation under "enablePriorityClasses" above
+  # priorities: true
 
   ## Minions, which listen to changes in the registry and add extra metadata
   minion-broken-link: true
@@ -150,6 +159,23 @@ connectors:
       ## from another portal
       ignoreHarvestSources: ["*"]
 
+      ## CKAN-only: Only get datasets that match this organisation name - you can only have one due to limitations
+      ## in the CKAN API, if you need multiple organisations make multiple connectors.
+      #allowedOrganisationName: "doee"
+
+      ## Extra data that will be added to the 'source' aspect
+      # extras:
+      #   a: 122
+      #   b:
+      #     - 1
+
+      ## Extra data that will be merged into the aspects that are recieved from the connector
+      # presetRecordAspects:
+      #   - id: "dcat-dataset-strings"
+      #     recordType: "dataset"
+      #     data:
+      #       creation:
+      #         isOpenData: true
 
 ## Settings for the ingress. You need one of these if you want to do SSL or use the Google CDN on GKE
 ## Otherwise using the built-in Kubernetes LoadBalancer works ok.
@@ -306,8 +332,10 @@ gateway:
     # loadBalancerIP:
 
   ## If replacing a CKAN installation with Magda, this will redirect CKAN paths without
-  ## direct magda equivalents (e.g. the API) to a ckan installation at this domain
+  ## direct magda equivalents (e.g. the API) to a ckan installation at this domain and path
+  # enableCkanRedirection: true
   # ckanRedirectionDomain: "example.com"
+  # ckanRedirectionPath: "/data"
 
   ## Configure the autoscaler
   # autoscaler:
@@ -324,10 +352,19 @@ gateway:
     # facebookClientId: ""
     ## Client id for google
     # googleClientId: ""
+    ## If you want to use ckan as a way to login, put the base URL here
+    # ckanAuthenticationUrl: https://example.com
 
   ## Configures the Content Security Policy that will be set on all responses -
   ## the contents will be converted to JSON and passed into https://github.com/helmetjs/csp
-  # csp:
+  csp:
+    directives:
+      scriptSrc:
+      - "''self''"
+      - "''unsafe-inline''"
+      - browser-update.org
+      objectSrc:
+      - "''none''"
 
   ## Configures helmet.js - config will be converted to JSON and passed to
   ## https://github.com/helmetjs/helmet
