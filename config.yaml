@@ -354,6 +354,9 @@ gateway:
     # googleClientId: ""
     ## If you want to use ckan as a way to login, put the base URL here
     # ckanAuthenticationUrl: https://example.com
+    ## If you want to use the Australian Department of Industry's VANguard service, put the details here:
+    # vanguardWsFedIdpUrl: https://authentication.business.gov.au/fas/v2/wsfed12/authenticate
+    # vanguardWsFedRealm: your-realm-here
 
   ## Configures the Content Security Policy that will be set on all responses -
   ## the contents will be converted to JSON and passed into https://github.com/helmetjs/csp
