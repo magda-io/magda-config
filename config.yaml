@@ -459,6 +459,10 @@ gateway:
   ## The search score after which to show a "suggest a dataset" form
   # datasetSearchSuggestionScoreThreshold: 65
 
+  ## The id of the organization to display by default in the Add Dataset flow.
+  # defaultOrganizationId: "abc"
+
+
 ## Settings for the broken link minion, which crawls URLs of distributions in order
 ## to determine whether they're still available.
 # minion-broken-link:
