@@ -408,6 +408,10 @@ gateway:
   ## Log level to use
   # logLevel: INFO
 
+  ## Stops checking for authorization on methods that change the state of the registry.
+  ## Useful when running locally - DO NOT TURN ON IN PRODUCTION
+  # skipAuthorization: false
+
   ## Configures the liveness probe that checks if the registry is still alive. This
   ## is configurable seperately because currently the registry api has a tendency to
   ## slow down over time, and needs to be restarted when this occurs.
@@ -418,15 +422,21 @@ gateway:
   ## but can only ever run one pod at a time, and read-only, which can only do read-only requests but
   ## is stateless and can be horizontally scaled
   # deployments:
-  #   full:
+    # full:
+      ## Resources for the full deployment, as per other resource declarations
+      # resources:
 
     # readOnly:
       ## Whether to enable the read-only deployment - if not all traffic will go to the full deployment,
       ## otherwise traffic through /api/v0/registry will come here and only traffic to /api/v0/registry-auth
       ## will go to the full deployment
-      # enable: false
+      # enable: true
+      
+      ## Number of replicas
+      # replicas: 2
 
-
+      ## Resources for the full deployment, as per other resource declarations
+      # resources:
 
 ## Configures the registry database, if a separate one is being used.
 # registry-db:
