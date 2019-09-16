@@ -7,7 +7,7 @@ global:
   ## Running in separate pods scales better, but requires more resources
   # useCombinedDb: true
 
-  ## Whether to use the Google Cloud SQL managed postgres solution. Only set 
+  ## Whether to use the Google Cloud SQL managed postgres solution. Only set
   ## this to true if you already have cloud sql set up and be sure to look at
   ## settings for the cloud-sql-proxy service below.
   # useCloudSql: false
@@ -25,15 +25,15 @@ global:
   #   maxUnavailable: 0
 
   #image:
-    ## What tag of the magda images to get. Look at 
+    ## What tag of the magda images to get. Look at
     ## for versions. https://github.com/magda-io/magda/releases/latest.
     ## By default this is the same version as the helm chart.
-    # tag: 
+    # tag:
     ## The docker repository to get the images from - defaults to the official
     ## data61 docker hub repo
     # repository: data61
     ## The imagePullPolicy to use for images - generally unless you're actively
-    ## trying to track development this should be "IfNotPresent", otherwise if 
+    ## trying to track development this should be "IfNotPresent", otherwise if
     ## you are it can be "Always". Defaults to "IfNotPresent"
     # pullPolicy: IfNotPresent
     ## Kubernetes secret to use if you're fetching images from a private repository
@@ -52,7 +52,7 @@ global:
   ## The admin to use as the root admin user in the database. Defaults to the very first
   ## uuidv4
   # defaultAdminUserId: "00000000-0000-4000-8000-000000000000"
-  
+
   ## Default log level to use across the project. Currently this only affects scala-based
   ## services
   # logLevel: INFO
@@ -60,17 +60,24 @@ global:
   ## Whether to disable database authentication - useful in development, a very very bad
   ## idea in production
   # noDbAuth: false
+  
+  ## Whether to give the pods priority classes - these ensure that essential pods like
+  ## ElasticSearch, Databases and the Gateway are schedules ahead of less essential pods
+  ## like minions, but tend to cause problems if you're running Magda over multiple
+  ## namespaces. Make sure that the priorities tag is true if you turn this on.
+  # enablePriorityClass: true
 
 ## Tags allow for services to be turned on and off on the fly... e.g. if you don't need
 ## to send emails, turn the correspondence-api off
 tags:
-  ## "all" is a shortcut which turns on all services except sleuthers.
-  all: true 
+  ## "all" is a shortcut which turns on all services except minions.
+  all: true
 
-  ## General services. Note that if you are using combined-db, you need to set both 
+  ## General services. Note that if you are using combined-db, you need to set both
   ## combined-db and the databases that you are using (e.g. authorization-db) to true.
   ## You can find explanations of what each of these are below
-  
+
+  # admin-api: true
   # apidocs-server: true
   # authorization-api: true
   # authorization-db: true
@@ -94,12 +101,15 @@ tags:
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
   ## through a Kubernetes LoadBalancer service
   # ingress: false
-  
-  ## Sleuthers, which listen to changes in the registry and add extra metadata
-  sleuther-broken-link: true
-  sleuther-linked-data-rating: true
-  sleuther-visualization: true
-  sleuther-format: true
+
+  ## Priority classes - see explanation under "enablePriorityClasses" above
+  # priorities: true
+
+  ## Minions, which listen to changes in the registry and add extra metadata
+  minion-broken-link: true
+  minion-linked-data-rating: true
+  minion-visualization: true
+  minion-format: true
 
 ## These are the external jobs that pull data in from other data portals. A default is provided here for you.
 connectors:
@@ -143,12 +153,29 @@ connectors:
       sourceUrl: "https://data.gov.au/"
       ## When crawling through from beginning to end, how big should the individual requests be in records?
       pageSize: 1000
-      ## Crontab schedule for how often this should happen. 
+      ## Crontab schedule for how often this should happen.
       schedule: "0 * * * *"
       ## CKAN-specific config: what harvest sources to ignore. * will ignore everything that's been harvested
       ## from another portal
       ignoreHarvestSources: ["*"]
 
+      ## CKAN-only: Only get datasets that match this organisation name - you can only have one due to limitations
+      ## in the CKAN API, if you need multiple organisations make multiple connectors.
+      #allowedOrganisationName: "doee"
+
+      ## Extra data that will be added to the 'source' aspect
+      # extras:
+      #   a: 122
+      #   b:
+      #     - 1
+
+      ## Extra data that will be merged into the aspects that are recieved from the connector
+      # presetRecordAspects:
+      #   - id: "dcat-dataset-strings"
+      #     recordType: "dataset"
+      #     data:
+      #       creation:
+      #         isOpenData: true
 
 ## Settings for the ingress. You need one of these if you want to do SSL or use the Google CDN on GKE
 ## Otherwise using the built-in Kubernetes LoadBalancer works ok.
@@ -156,11 +183,11 @@ connectors:
   ## The hostname of the site
   # hostname: example.com
   ## The name of the external ip to use - used when using the GCE ingress type
-  # ipName: 
+  # ipName:
   ## The class of the ingress - if running on GKE, gce will automatically work, otherwise you
   ## can use "nginx" which requires extra setup
   # ingressClass: gce
-  ## Whether to enable TLS - requires a TLS secret to be set: 
+  ## Whether to enable TLS - requires a TLS secret to be set:
   ## https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
   # enableTls: false
   ## Name of the tls secret, defaults to "magda-cert-tls"
@@ -213,12 +240,12 @@ connectors:
 
     ## Whether to only read backups but not write them
     # readOnly: false
-    
+
     ## The WAL-E recovery mode to use - generally leave this out, or set to "immediate" for
     ## the quickest possible recovery at the expense of some data loss
     # recoveryMode:
 
-    ## Settings for pushing backups to Google Storage 
+    ## Settings for pushing backups to Google Storage
     ## The prefix of the place to push the backups
     # gsPrefix: "gs://magda-postgres-backups-asia/dev"
 
@@ -262,7 +289,7 @@ correspondence-api:
   ## The hostname of the SMTP server to use - the password should be in a secret
   smtpHostname: "example.com"
 
-  ## The SMTP port to use - beware, default SMTP ports are blocked on most cloud 
+  ## The SMTP port to use - beware, default SMTP ports are blocked on most cloud
   ## providers
   smtpPort: 80
 
@@ -288,7 +315,7 @@ correspondence-api:
   ## Settings for the client nodes - this accepts HTTP connections from search-api and
   ## indexer and forwards them to the data nodes.
   # client:
-  
+
   ## Settings for the master nodes - these keep track of the data nodes as they go up
   ## and down and keep track of what the current state of the data should be.
   # master:
@@ -298,15 +325,17 @@ correspondence-api:
 gateway:
   service:
     ## The type of kubernetes service to use for the gateway - set to LoadBalancer to
-    ## expose an external IP, or leave blank if using an ingress
+    ## expose an external IP, or set to "NodePort" if using an ingress
     type: LoadBalancer
 
     ## If using a LoadBalancer, the IP to try to use. Leave unset to get an automatic one
-    # loadBalancerIP: 
+    # loadBalancerIP:
 
   ## If replacing a CKAN installation with Magda, this will redirect CKAN paths without
-  ## direct magda equivalents (e.g. the API) to a ckan installation at this domain
+  ## direct magda equivalents (e.g. the API) to a ckan installation at this domain and path
+  # enableCkanRedirection: true
   # ckanRedirectionDomain: "example.com"
+  # ckanRedirectionPath: "/data"
 
   ## Configure the autoscaler
   # autoscaler:
@@ -323,12 +352,24 @@ gateway:
     # facebookClientId: ""
     ## Client id for google
     # googleClientId: ""
+    ## If you want to use ckan as a way to login, put the base URL here
+    # ckanAuthenticationUrl: https://example.com
+    ## If you want to use the Australian Department of Industry's VANguard service, put the details here:
+    # vanguardWsFedIdpUrl: https://authentication.business.gov.au/fas/v2/wsfed12/authenticate
+    # vanguardWsFedRealm: your-realm-here
 
   ## Configures the Content Security Policy that will be set on all responses -
   ## the contents will be converted to JSON and passed into https://github.com/helmetjs/csp
-  # csp:
+  csp:
+    directives:
+      scriptSrc:
+      - "''self''"
+      - "''unsafe-inline''"
+      - browser-update.org
+      objectSrc:
+      - "''none''"
 
-  ## Configures helmet.js - config will be converted to JSON and passed to 
+  ## Configures helmet.js - config will be converted to JSON and passed to
   ## https://github.com/helmetjs/helmet
   # helmet:
 
@@ -336,9 +377,16 @@ gateway:
   ## to https://www.npmjs.com/package/cors#configuring-cors
   # cors:
 
-  ## Enables a simple form at /auth that allows you to test login and logout functionality
+  ## Enables authorization, include a list of authorization options at /auth/providers
+  ## and a simple form at /auth that allows you to test login and logout functionality
   ## without needing a web pod
   # enableAuthEndpoint: false
+
+  ## Redirect HTTP urls to HTTPs urls
+  # enableHttpsRedirection: false
+
+  ## Turn on HTTP basic authentication - this uses secrets created by the create-secret script
+  # enableWebAccessControl: false
 
 ## Configures the service that puts datasets and organisations into elasticsearch
 # indexer:
@@ -392,7 +440,7 @@ gateway:
 
 ## Configures the registry database, if a separate one is being used.
 # registry-db:
-    
+
 ## Configures the API that connects to ElasticSearch to perform searches.
 # search-api:
 
@@ -406,7 +454,7 @@ gateway:
   # autoscaler:
   #   minReplicas: 2
   #   maxReplicas: 4
-  
+
   ## Whether to disable the ability to log in in the UI - set this to true if
   ## you don't want to use any account features.
   # disableAuthenticationFeatures: true
@@ -415,19 +463,33 @@ gateway:
   ## banner allowing people to go back if they don't like the new system.
   # fallbackUrl: "https://data.gov.au"
 
-## Settings for the broken link sleuther, which crawls URLs of distributions in order
+  # Google Analytics Ids to collect analytics data from the frontend
+  # gapiIds:
+    # - "ABC123"
+
+  ## The search score after which to show a "suggest a dataset" form
+  # datasetSearchSuggestionScoreThreshold: 65
+
+  ## The id of the organization to display by default in the Add Dataset flow.
+  # defaultOrganizationId: "abc"
+
+
+## Settings for the broken link minion, which crawls URLs of distributions in order
 ## to determine whether they're still available.
-# sleuther-broken-link:
-  
-## Settings for the format sleuther, which tries to determine the true format of a 
+# minion-broken-link:
+
+## Settings for the format minion, which tries to determine the true format of a
 ## distribution based on a number of criteria.
-# sleuther-format:
+# minion-format:
 
-## Settings for the linked data rating sleuther, which determines a rating for a dataset
+## Settings for the linked data rating minion, which determines a rating for a dataset
 ## based off the availability, license and format of a dataset
-# sleuther-linked-data-rating:
+# minion-linked-data-rating:
 
-## Settings for teh visualization sleuther, which looks at tabular data in order to 
+## Settings for the visualization minion, which looks at tabular data in order to
 ## determine which columns can be charted.
-# sleuther-visualization:
+# minion-visualization:
 
+# Settings for the admin API, which allows for changes to be made to the magda
+# installation at runtime... e.g. creating new connector jobs
+# admin-api:
