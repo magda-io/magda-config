@@ -23,63 +23,21 @@ variable "credential_file_path" {
   description = "Google service account key file path"
 }
 
-variable "aws_access_key" {
-  type        = string
-  description = "AWS access key"
-}
-
-variable "aws_secret_key" {
-  type        = string
-  description = "AWS secret key"
-}
-
-variable "external_domain_root" {
-  type        = string
-  description = "The external domain root: e.g. if we provide `demo.magda.io` here, the final accessible domain will be xxx-xxx-xxx-xx.demo.magda.io"
-}
-
-variable "external_domain_zone" {
-  type        = string
-  description = "The external domain zone: depends on your route53 setup. For magda.io, the zone name is `magda.io`"
-}
-
-variable "cert_s3_bucket" {
-  type        = string
-  description = "the s3 bucket that stores the certificate"
-}
-
-variable "cert_s3_folder" {
-  type        = string
-  description = "the s3 folder that stores the certificate data files"
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # Generally, these values won't need to be changed.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "aws_default_region" {
+variable "external_doamin" {
   type        = string
-  description = "AWS default region; Default to sydney"
-  default     = "ap-southeast-2"
+  description = "The external domain; When supplied, HTTPS access will be setup. Otherwise, http only access will be availble through domain [yourIp].xip.io"
+  default = null 
 }
 
-variable "acme_email" {
+variable "cluster_node_pool_machine_type" {
+  description = "The machine type to use, see https://cloud.google.com/sql/pricing for more details"
   type        = string
-  description = "ACME email; Default to contact@magda.io"
-  default     = "contact@magda.io"
-}
-
-variable "acme_server_url" {
-  type        = string
-  description = "ACME server url; Default to let's letsencrypt staging endpoint (higher limit for testing)"
-  default     = "https://acme-staging-v02.api.letsencrypt.org/directory"
-}
-
-variable "cert_min_days_remaining" {
-  type        = string
-  description = "The minimum amount of days remaining on the expiration of a certificate before a renewal is attempted. The default is 30"
-  default     = 30
+  default     = "n1-standard-4"
 }
 
 variable "db_password" {

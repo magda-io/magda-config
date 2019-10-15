@@ -18,17 +18,13 @@ provider "google" {
   credentials = "${var.credential_file_path}"
 }
 
-provider "aws" {
-  region     = "${var.aws_default_region}"
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-}
-
 locals {
   cluster_access_toekn          = "${data.google_client_config.default.access_token}"
   cluster_access_host           = "https://${module.cluster.endpoint}"
   cluster_access_ca_certificate = "${base64decode(module.cluster.master_auth.0.cluster_ca_certificate)}"
-  external_domain               = join(".", [replace(module.external_ip.address, ".", "-"), "${var.external_domain_root}"])
+  setup_ssl                     = var.external_domain == null ? false : true
+  runtime_external_domain       = var.external_domain == null ? "${external_ip.address}.xip.io" : "${var.external_domain}"
+  runtime_external_url          = var.setup_ssl ? "http://${local.runtime_external_domain}/" : "https://${local.runtime_external_domain}/"
 }
 
 data "google_client_config" "default" {}
@@ -64,6 +60,7 @@ module "cluster" {
   project              = var.project
   region               = var.region
   kubernetes_dashboard = var.kubernetes_dashboard
+  machine_type         = var.cluster_node_pool_machine_type
 }
 
 resource "kubernetes_cluster_role_binding" "default_service_acc_role_binding" {
@@ -105,12 +102,12 @@ resource "helm_release" "magda_helm_release" {
   namespace = "${var.namespace}"
 
   values = [
-    "${file("../../helm/magda-one-click.yml")}"
+    "${file("../../config.yml")}"
   ]
 
   set {
     name  = "externalUrl"
-    value = "http://${local.external_domain}/"
+    value = local.runtime_external_url
   }
 
   depends_on = [
