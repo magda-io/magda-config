@@ -28,7 +28,7 @@ variable "credential_file_path" {
 # Generally, these values won't need to be changed.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "external_doamin" {
+variable "external_domain" {
   type        = string
   description = "The external domain; When supplied, HTTPS access will be setup. Otherwise, http only access will be availble through domain [yourIp].xip.io"
   default = null 

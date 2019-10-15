@@ -26,7 +26,7 @@ resource "kubernetes_ingress" "default" {
     name      = "magda-primary-ingress"
     namespace = "${var.namespace}"
     annotations = {
-      "ingress.gcp.kubernetes.io/pre-shared-cert"   = local.setup_ssl ? google_compute_managed_ssl_certificate[0].default.name : null
+      "ingress.gcp.kubernetes.io/pre-shared-cert"   = local.setup_ssl ? google_compute_managed_ssl_certificate.default[0].name : null
       "kubernetes.io/ingress.global-static-ip-name" = module.external_ip.name
     }
   }
