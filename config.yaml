@@ -5,11 +5,13 @@ global:
   ## all run in separate pods unless some managed postgres solution (e.g.
   ## useCloudSql) is specified elsewhere.
   ## Running in separate pods scales better, but requires more resources
+  ## Will be overwritten to `true` if deployed through `terraform`
   # useCombinedDb: true
 
   ## Whether to use the Google Cloud SQL managed postgres solution. Only set
   ## this to true if you already have cloud sql set up and be sure to look at
   ## settings for the cloud-sql-proxy service below.
+  ## Will be overwritten to `false` if deployed through `terraform`
   # useCloudSql: false
 
   ## The external URL of the installation, e.g. "https://search.data.gov.au".
@@ -81,7 +83,10 @@ tags:
   # apidocs-server: true
   # authorization-api: true
   # authorization-db: true
-  # cloud-sql-proxy: true
+
+  ## Will be overwritten to `false` if deployed through `terraform`
+  # cloud-sql-proxy: true 
+  
   # combined-db: true
   # content-db: true
   # content-api: true
@@ -100,6 +105,7 @@ tags:
   ## Whether to use an ingress, which is necessary for HTTPS and using the Google CDN with
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
   ## through a Kubernetes LoadBalancer service
+  ## Will be overwritten to `false` if deployed through `terraform`
   # ingress: false
 
   ## Priority classes - see explanation under "enablePriorityClasses" above
@@ -326,6 +332,7 @@ gateway:
   service:
     ## The type of kubernetes service to use for the gateway - set to LoadBalancer to
     ## expose an external IP, or set to "NodePort" if using an ingress
+    ## Will be overwritten to `NodePort` if deployed through `terraform`
     type: LoadBalancer
 
     ## If using a LoadBalancer, the IP to try to use. Leave unset to get an automatic one

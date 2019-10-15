@@ -110,6 +110,31 @@ resource "helm_release" "magda_helm_release" {
     value = local.runtime_external_url
   }
 
+  set {
+    name  = "useCombinedDb"
+    value = true
+  }
+
+  set {
+    name  = "useCloudSql"
+    value = false
+  }
+
+  set {
+    name  = "tags.cloud-sql-proxy"
+    value = false
+  }
+
+  set {
+    name  = "tags.ingress"
+    value = false
+  }
+
+  set {
+    name  = "gateway.service.type"
+    value = "NodePort"
+  }
+
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding,
     kubernetes_namespace.magda_namespace,
