@@ -1,0 +1,61 @@
+global:
+  externalUrl: http://test.com
+  rollingUpdate:
+    maxUnavailable: 1
+  noDbAuth: true
+  useCloudSql: false
+  useCombinedDb: true
+  enablePriorityClass: false
+  defaultContactEmail: "test@test.com"
+  enableMultiTenants: false
+
+tags:
+  priorities: true
+  all: false
+  apidocs-server: true
+  admin-api: true
+  authorization-api: true
+  opa: true
+  authorization-db: true
+  combined-db: true
+  content-api: true
+  content-db: true
+  correspondence-api: false
+  elasticsearch: true
+  gateway: true
+  indexer: true
+  preview-map: true
+  registry-api: true
+  registry-db: true
+  search-api: true
+  session-db: true
+  minion-broken-link: true
+  minion-linked-data-rating: true
+  minion-visualization: true
+  minion-format: true
+  web-server: true
+  ingress: false
+  # connector will be run from terraform so that it can wait until db is ready
+  connectors: false
+  tenant-api: false
+  tenant-db: false
+
+gateway:
+  ckanRedirectionPath: ""
+  enableCkanRedirection: false
+  enableAuthEndpoint: true
+  cors:
+    origin: true
+  auth:
+    facebookClientId: "173073926555600"
+    arcgisClientId: "d0MgVUbbg5Z6vmWo"
+    googleClientId: "275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com"
+    ckanAuthenticationUrl: https://data.gov.au/data
+
+registry-api:
+  skipAuthorization: false
+  
+web-server:
+  fallbackUrl: "https://data.gov.au"
+  featureFlags:
+    cataloguing: true

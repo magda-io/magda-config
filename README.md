@@ -2,6 +2,8 @@
 
 This is a simple boilerplate that allows you to quickly set up a Magda instance.
 
+> If you intend to deploy Magda to Google Cloud, you probably want to try an express way of deploying Magda using Terraform [here](./deploy-with-terraform.md).
+
 # Getting Started
 Before you start you need to get a Kubernetes cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop) on MacOS or Windows, or [Minikube](https://kubernetes.io/docs/setup/minikube/) on Linux. Either way make sure the VM has at least 2 CPUs and 4gb of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
 
