@@ -118,7 +118,7 @@ Edit [config.yaml](./config.yaml). You can find more information of the config o
 You also can use the content of [config.yaml.sample](./config.yaml.sample) if you want to have a quick test without going through every options.
 
 
-#### 10. eploy using terraform
+#### 10. Deploy using terraform
 
 ```bash
 terraform apply -auto-approve
@@ -140,7 +140,7 @@ As long as you specified `external_domain` in config file [terraform/magda/terra
 
 ##### Upgrade Your Site for SSL / HTTPS Access
 
-If you didn't supply a value for `external_domain` config field during your ininitial deployment, you can edit the config file and update your deployment by re-run:
+If you didn't supply a value for `external_domain` config field during your initial deployment, you can edit the config file and update your deployment by re-run:
 
 ```bash
 terraform apply -auto-approve
