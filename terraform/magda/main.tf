@@ -24,7 +24,7 @@ locals {
   cluster_access_ca_certificate = "${base64decode(module.cluster.master_auth.0.cluster_ca_certificate)}"
   setup_ssl                     = var.external_domain == null ? false : true
   runtime_external_domain       = var.external_domain == null ? "${module.external_ip.address}.xip.io" : "${var.external_domain}"
-  runtime_external_url          = local.setup_ssl ? "http://${local.runtime_external_domain}/" : "https://${local.runtime_external_domain}/"
+  runtime_external_url          = local.setup_ssl ? "https://${local.runtime_external_domain}/" : "http://${local.runtime_external_domain}/"
 }
 
 data "google_client_config" "default" {}
