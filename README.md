@@ -194,7 +194,7 @@ Start playing around!
 - If you want to get some datasets into your system, turn the `connectors` tag to `true` in [config.yaml](./config.yaml) and re-run `terraform apply -auto-approve`. A connector job will be created and start pulling datasets from `data.gov.au`... or you can modify `connectors:` in [config.yaml](./config.yaml) to pull in datasets from somewhere else.
 - In the Google Cloud console, go to Kubernetes Engine / Clusters and click the "Connect" button, then use the `kubectl` command (should be installed along with the Google Cloud command line) to look at your new Magda cluster.
 
-![Google Kubernetes Engine Connect Button](./gcp-clusters.png)
+![Google Kubernetes Engine Connect Button](./gke-clusters.png)
 
 Use `kubectl get pods` to see all of the running containers and `kubectl logs -f <container name>` to tail the logs of one. You can also use `kubectl port-forward combined-db-0 5432` to open a tunnel to the database, and use psql, PgAdmin or equivalent to investigate the database - you can find the password in terraform.tfstate.
 - Sign up for an API key on Facebook or Google, and put it in terraform.tfvars in order to enable sign in.
