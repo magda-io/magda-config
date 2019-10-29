@@ -11,7 +11,7 @@ If you want to run it locally in something like Minikube, or want to be a bit mo
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/magda-io/magda-config.git`
+git clone https://github.com/magda-io/magda-config.git
 ```
 
 
@@ -34,7 +34,7 @@ gcloud components install beta
 
 Before you start the deployment process, you need to create a [google cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) via [Google Cloud Console](https://console.cloud.google.com/) and note down the `Project Id`. Note that this isn't necessarily exactly the same as the id you specified - if it's already been taken, Google will append some numbers to it. Make sure by checking the "Select a Project" dialog in Google Cloud:
 
-![Google Cloud Select a Project Dialog](docs/assets/gcp-projects.png)
+![Google Cloud Select a Project Dialog](./gcp-projects.png)
 
 ### 5. Set Default Project
 
@@ -90,7 +90,6 @@ First go to the `terraform/magda` directory inside your cloned version of this r
 cd terraform/magda
 ```
 
-
 ```bash
 gcloud iam service-accounts keys create key.json --iam-account=$SERVICE_ACCOUNT_EMAIL
 ```
@@ -137,11 +136,11 @@ Edit [terraform/magda/terraform.tfvars](./terraform/magda/terraform.tfvars) and 
 - `Project id`: the id of the google cloud project that you created (`echo $PROJECT_ID`)
 - `Deploy Region`: which region you want to deploy magda to
 - `credential_file_path`: the path of the service account key file (`key.json`) that we just generated
-- `namespace`: which kubernetes namespace you want to deploy Magda to (generally this should just be "default")? 
+- `namespace`: which kubernetes namespace you want to deploy Magda to (generally this should just be "default") 
 - `external_domain`: Optional: what domain you want the Magda server to be accessed from (which requires a bit of extra configuration). Leave blank to just access your instance through a temporary domain. You can set this later if necessary.
 
 Other optional settings and their default values (if not set) are:
-- `cluster_node_pool_machine_type`: The machine type to use, see https://cloud.google.com/sql/pricing for more details. Default: `n1-standard-4`
+- `cluster_node_pool_machine_type`: The machine type to use, see https://cloud.google.com/compute/vm-instance-pricing for more details. Default: `n1-standard-4`
 - `kubernetes_dashboard`: Whether turn on [kubernetes_dashboard](https://github.com/kubernetes/dashboard) or not; Default: `false`
 
 You can find full list of configurable options from [here](./terraform/magda/variables.tf).
@@ -195,7 +194,7 @@ Start playing around!
 - If you want to get some datasets into your system, turn the `connectors` tag to `true` in [config.yaml](./config.yaml) and re-run `terraform apply -auto-approve`. A connector job will be created and start pulling datasets from `data.gov.au`... or you can modify `connectors:` in [config.yaml](./config.yaml) to pull in datasets from somewhere else.
 - In the Google Cloud console, go to Kubernetes Engine / Clusters and click the "Connect" button, then use the `kubectl` command (should be installed along with the Google Cloud command line) to look at your new Magda cluster.
 
-![Google Kubernetes Engine Connect Button](docs/assets/gcp-projects.png)
+![Google Kubernetes Engine Connect Button](./gcp-clusters.png)
 
 Use `kubectl get pods` to see all of the running containers and `kubectl logs -f <container name>` to tail the logs of one. You can also use `kubectl port-forward combined-db-0 5432` to open a tunnel to the database, and use psql, PgAdmin or equivalent to investigate the database - you can find the password in terraform.tfstate.
 - Sign up for an API key on Facebook or Google, and put it in terraform.tfvars in order to enable sign in.
