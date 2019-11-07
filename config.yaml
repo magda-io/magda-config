@@ -93,7 +93,7 @@ tags:
   combined-db: true
   content-db: true
   content-api: true
-  correspondence-api: false # Disabled because it needs an SMTP server to run
+  correspondence-api: false  # Disabled because it needs an SMTP server to run
   elasticsearch: true
   gateway: true
   indexer: true
@@ -103,7 +103,7 @@ tags:
   search-api: true
   session-db: true
   web-server: true
-  connectors: true # leave this false for the first deployment
+  connectors: false  # leave this false for the first deployment
 
   ## Whether to use an ingress, which is necessary for HTTPS and using the Google CDN with
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster

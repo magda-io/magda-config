@@ -17,21 +17,18 @@ locals {
 }
 
 resource "random_password" "db_password" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
+  length  = 16
+  special = true
 }
 
 resource "random_password" "jwt_secret" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
+  length  = 16
+  special = true
 }
 
 resource "random_password" "session_secret" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
+  length  = 16
+  special = true
 }
 
 resource "kubernetes_secret" "auth_secrets" {
