@@ -4,7 +4,8 @@ project = "my-project-id"
 
 region = "australia-southeast1-a"
 
-namespace = "default"
+# Please any namespace other than `default`
+namespace = "magda"
 
 # Replace with your key file location
 credential_file_path = "./key.json"
