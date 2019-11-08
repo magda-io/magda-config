@@ -5,11 +5,13 @@ global:
   ## all run in separate pods unless some managed postgres solution (e.g.
   ## useCloudSql) is specified elsewhere.
   ## Running in separate pods scales better, but requires more resources
+  ## Will be overwritten to `true` if deployed through `terraform`
   # useCombinedDb: true
 
   ## Whether to use the Google Cloud SQL managed postgres solution. Only set
   ## this to true if you already have cloud sql set up and be sure to look at
   ## settings for the cloud-sql-proxy service below.
+  ## Will be overwritten to `false` if deployed through `terraform`
   # useCloudSql: false
 
   ## The external URL of the installation, e.g. "https://search.data.gov.au".
@@ -67,49 +69,60 @@ global:
   ## namespaces. Make sure that the priorities tag is true if you turn this on.
   # enablePriorityClass: true
 
+  ## Whether to enable multi-tenancy (pre-alpha)
+  # enableMultiTenants: false
+
 ## Tags allow for services to be turned on and off on the fly... e.g. if you don't need
 ## to send emails, turn the correspondence-api off
 tags:
   ## "all" is a shortcut which turns on all services except minions.
-  all: true
+  all: false
 
   ## General services. Note that if you are using combined-db, you need to set both
   ## combined-db and the databases that you are using (e.g. authorization-db) to true.
   ## You can find explanations of what each of these are below
 
-  # admin-api: true
-  # apidocs-server: true
-  # authorization-api: true
-  # authorization-db: true
-  # cloud-sql-proxy: true
-  # combined-db: true
-  # content-db: true
-  # content-api: true
-  # correspondence-api: true
-  # elasticsearch: true
-  # gateway: true
-  # indexer: true
-  # preview-map: true
-  # registry-api: true
-  # registry-db: true
-  # search-api: true
-  # session-db: true
-  # web-server: true
-  # connectors: true
+  admin-api: true
+  apidocs-server: true
+  authorization-api: true
+  authorization-db: true
+
+  ## Will be overwritten to `false` if deployed through `terraform`
+  # cloud-sql-proxy: true 
+  
+  combined-db: true
+  content-db: true
+  content-api: true
+  correspondence-api: false  # Disabled because it needs an SMTP server to run
+  elasticsearch: true
+  gateway: true
+  indexer: true
+  preview-map: true
+  registry-api: true
+  registry-db: true
+  search-api: true
+  session-db: true
+  web-server: true
+  connectors: false  # leave this false for the first deployment
 
   ## Whether to use an ingress, which is necessary for HTTPS and using the Google CDN with
   ## Google Kubernetes Engine. By default this is off, and access is provided to the cluster
   ## through a Kubernetes LoadBalancer service
+  ## Will be overwritten to `false` if deployed through `terraform`
   # ingress: false
 
   ## Priority classes - see explanation under "enablePriorityClasses" above
-  # priorities: true
+  priorities: true
 
   ## Minions, which listen to changes in the registry and add extra metadata
   minion-broken-link: true
   minion-linked-data-rating: true
   minion-visualization: true
   minion-format: true
+
+  ## Tenant api / db (pre-alpha)
+  tenant-api: false
+  tenant-db: false
 
 ## These are the external jobs that pull data in from other data portals. A default is provided here for you.
 connectors:
@@ -276,6 +289,10 @@ connectors:
 
 ## A pod that controls the content in magda's UI
 # content-api:
+  ## Override the SCSS variables used by Magda's SCSS files. Look at the "_variables.scss"
+  ## file in the magda code for details. Most customisation can be performed by setting
+  ## magda-color-primary and magda-color-secondary
+  # scssVars: '{"magda-color-primary": "#272727", "magda-color-secondary": "#726a5c"}'
 
 ## The database behind content-api
 # content-db:
@@ -326,6 +343,7 @@ gateway:
   service:
     ## The type of kubernetes service to use for the gateway - set to LoadBalancer to
     ## expose an external IP, or set to "NodePort" if using an ingress
+    ## Will be overwritten to `NodePort` if deployed through `terraform`
     type: LoadBalancer
 
     ## If using a LoadBalancer, the IP to try to use. Leave unset to get an automatic one
