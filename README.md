@@ -112,7 +112,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$SERV
 
 #### 11. Initiate Terraform
 
- and run:
+To do so, run:
 
 ```bash
 terraform init
