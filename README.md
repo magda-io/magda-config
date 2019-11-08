@@ -69,7 +69,7 @@ Feel free to use a name other than `magda-robot` if you like.
 
 You need to find out the service account email of your newly created service account to be used as the identifier in other commands.
 
-To do so, you can firstly, list all service accounts:
+To do so, first list all service accounts:
 
 ```bash
 gcloud iam service-accounts list
