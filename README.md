@@ -94,7 +94,7 @@ gcloud iam service-accounts keys create key.json --iam-account=$SERVICE_ACCOUNT_
 ```
 
 You will now have a `key.json` file in `terraform/magda`, containing a private key. We suggest you put this somewhere safe like a password manager.
-DO NOT CHECK IT INTO SOURCE CONTROL.
+DO **NOT** CHECK IT INTO SOURCE CONTROL.
 
 #### 10. Grant service account permission
 
