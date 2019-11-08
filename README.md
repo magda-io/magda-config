@@ -38,7 +38,7 @@ Before you start the deployment process, you need to create a [google cloud proj
 
 ### 5. Set Default Project
 
-Set the project id you noted down to an environment variable, because you'll need it in a few places - this will work in bash, if you're using another shell either figure out the equivalent or just manually replace $PROJECT_ID with your project id.
+Set the project id you noted down to an environment variable, because you'll need it in a few places - this will work in bash. If you're using another shell use the equivalent command or just manually replace `$PROJECT_ID` with your project id.
 
 ```bash
 export PROJECT_ID=[your-project-id]
