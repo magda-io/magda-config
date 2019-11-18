@@ -205,5 +205,5 @@ Use `kubectl get pods` to see all of the running containers and `kubectl logs -f
 - Sign up for an API key on Facebook or Google, and put it in terraform.tfvars in order to enable sign in.
 - Configure an SMTP server in terraform.tfvars and switch the `correspondence` flag to true in order to be able to send emails from the app.
 - Set `scssVars` in [config.yaml](./config.yaml) to change the colours
-- Ask us questions on gitter.im/magda-data
+- Ask us questions on https://spectrum.chat/magda
 - Send us an email at contact@magda.io to tell us about your new Magda server.
