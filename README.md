@@ -202,8 +202,8 @@ Start playing around!
 
 Use `kubectl get pods` to see all of the running containers and `kubectl logs -f <container name>` to tail the logs of one. You can also use `kubectl port-forward combined-db-0 5432` to open a tunnel to the database, and use psql, PgAdmin or equivalent to investigate the database - you can find the password in terraform.tfstate.
 
-- Sign up for an API key on Facebook or Google, and put it in terraform.tfvars in order to enable sign in.
-- Configure an SMTP server in terraform.tfvars and switch the `correspondence` flag to true in order to be able to send emails from the app.
+- Sign up for an API key on Facebook or Google, and put your client secret in terraform.tfvars and your client id in config.yaml to enable signing in via OAuth.
+- Configure an SMTP server in terraform.tfvars and config.yaml and switch the `correspondence` flag to true in order to be able to send emails from the app.
 - Set `scssVars` in [config.yaml](./config.yaml) to change the colours
 - Ask us questions on https://spectrum.chat/magda
 - Send us an email at contact@magda.io to tell us about your new Magda server.
