@@ -365,11 +365,11 @@ gateway:
     # maxReplicas: 4
 
   ## Client ids to use for OAuth authentication
-  # auth:
+  auth:
     ## Client id for facebook
     # facebookClientId: ""
     ## Client id for google
-    # googleClientId: ""
+    googleClientId: 190233303155-9g8gtniocsitcl20mjfrqbceod931nge.apps.googleusercontent.com
     ## If you want to use ckan as a way to login, put the base URL here
     # ckanAuthenticationUrl: https://example.com
     ## If you want to use the Australian Department of Industry's VANguard service, put the details here:
@@ -398,7 +398,7 @@ gateway:
   ## Enables authorization, include a list of authorization options at /auth/providers
   ## and a simple form at /auth that allows you to test login and logout functionality
   ## without needing a web pod
-  # enableAuthEndpoint: false
+  enableAuthEndpoint: true
 
   ## Redirect HTTP urls to HTTPs urls
   # enableHttpsRedirection: false

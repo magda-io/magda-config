@@ -1,6 +1,6 @@
 # See variables.tf for more detailed description
 
-project = "my-project-id"
+project = "terriajs"
 
 region = "australia-southeast1-a"
 
