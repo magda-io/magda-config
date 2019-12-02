@@ -27,11 +27,22 @@ variable "credential_file_path" {
 # OPTIONAL PARAMETERS
 # Generally, these values won't need to be changed.
 # ---------------------------------------------------------------------------------------------------------------------
+variable "magda_version" {
+  type        = string
+  description = "Specify Magda helm chart version to install"
+  default     = null
+}
+
+variable "allow_dev_magda_version" {
+  type        = bool
+  description = "Specify whether allow to use development Magda helm chart version to install if version is not specified"
+  default     = false
+}
 
 variable "external_domain" {
   type        = string
   description = "The external domain; When supplied, HTTPS access will be setup. Otherwise, http only access will be availble through domain [yourIp].xip.io"
-  default = null 
+  default     = null
 }
 
 variable "cluster_node_pool_machine_type" {

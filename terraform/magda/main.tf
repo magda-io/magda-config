@@ -97,6 +97,8 @@ resource "helm_release" "magda_helm_release" {
   # or repository = "../../helm" for local repo
   repository = "https://charts.magda.io/"
   chart      = "magda"
+  version    = var.magda_version
+  devel      = var.allow_dev_magda_version
   timeout    = 1800
 
   namespace = "${var.namespace}"
