@@ -108,17 +108,17 @@ resource "helm_release" "magda_helm_release" {
   ]
 
   set {
-    name  = "externalUrl"
+    name  = "global.externalUrl"
     value = local.runtime_external_url
   }
 
   set {
-    name  = "useCombinedDb"
+    name  = "global.useCombinedDb"
     value = true
   }
 
   set {
-    name  = "useCloudSql"
+    name  = "global.useCloudSql"
     value = false
   }
 
