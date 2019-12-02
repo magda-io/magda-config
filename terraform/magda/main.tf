@@ -8,14 +8,14 @@ provider "google-beta" {
   version     = ">= 2.11.0"
   project     = var.project
   region      = var.region
-  credentials = "${var.credential_file_path}"
+  credentials = var.credential_file_path
 }
 
 provider "google" {
   version     = ">= 2.11.0"
   project     = var.project
   region      = var.region
-  credentials = "${var.credential_file_path}"
+  credentials = var.credential_file_path
 }
 
 locals {
@@ -85,7 +85,7 @@ resource "kubernetes_cluster_role_binding" "default_service_acc_role_binding" {
 
 resource "kubernetes_namespace" "magda_namespace" {
   metadata {
-    name = "${var.namespace}"
+    name = var.namespace
   }
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding
@@ -102,7 +102,7 @@ resource "helm_release" "magda_helm_release" {
   timeout      = 1800
   force_update = true
 
-  namespace = "${var.namespace}"
+  namespace = var.namespace
 
   values = [
     "${file("../../config.yaml")}"

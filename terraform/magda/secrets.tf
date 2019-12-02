@@ -34,7 +34,7 @@ resource "random_password" "session_secret" {
 resource "kubernetes_secret" "auth_secrets" {
   metadata {
     name      = "auth-secrets"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {
@@ -53,7 +53,7 @@ resource "kubernetes_secret" "auth_secrets" {
 resource "kubernetes_secret" "db_passwords" {
   metadata {
     name      = "db-passwords"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {
@@ -85,7 +85,7 @@ resource "kubernetes_secret" "oauth_secrets" {
 
   metadata {
     name      = "oauth-secrets"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {
@@ -109,7 +109,7 @@ resource "kubernetes_secret" "smtp_secret" {
 
   metadata {
     name      = "smtp-secret"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
   }
 
   data = {

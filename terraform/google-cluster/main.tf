@@ -10,7 +10,7 @@ data "google_container_engine_versions" "available_k8s_version" {
 }
 
 resource "google_container_cluster" "primary_magda_cluster" {
-  provider = "google-beta"
+  provider = google-beta
   name     = var.cluster_name
   location = var.region
 
@@ -24,8 +24,8 @@ resource "google_container_cluster" "primary_magda_cluster" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  min_master_version = "${data.google_container_engine_versions.available_k8s_version.latest_master_version}"
-  node_version       = "${data.google_container_engine_versions.available_k8s_version.latest_node_version}"
+  min_master_version = data.google_container_engine_versions.available_k8s_version.latest_master_version
+  node_version       = data.google_container_engine_versions.available_k8s_version.latest_node_version
 
   master_auth {
     # Disable basic auth
@@ -46,13 +46,13 @@ resource "google_container_cluster" "primary_magda_cluster" {
 }
 
 resource "google_container_node_pool" "primary_magda_node_pool" {
-  provider   = "google-beta"
+  provider   = google-beta
   name       = var.node_pool_name
   location   = var.region
   cluster    = google_container_cluster.primary_magda_cluster.name
   node_count = 1
 
-  version = "${data.google_container_engine_versions.available_k8s_version.latest_node_version}"
+  version = data.google_container_engine_versions.available_k8s_version.latest_node_version
 
   node_config {
     preemptible  = var.preemptible

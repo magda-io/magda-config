@@ -6,7 +6,7 @@ terraform {
 
 resource "google_compute_managed_ssl_certificate" "default" {
   count    = local.setup_ssl ? 1 : 0
-  provider = "google-beta"
+  provider = google-beta
 
   name = "magda-certificate"
 
@@ -24,7 +24,7 @@ resource "google_compute_managed_ssl_certificate" "default" {
 resource "kubernetes_ingress" "default" {
   metadata {
     name      = "magda-primary-ingress"
-    namespace = "${var.namespace}"
+    namespace = var.namespace
     annotations = {
       "ingress.gcp.kubernetes.io/pre-shared-cert"   = local.setup_ssl ? google_compute_managed_ssl_certificate.default[0].name : null
       "kubernetes.io/ingress.global-static-ip-name" = module.external_ip.name
