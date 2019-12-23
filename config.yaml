@@ -124,6 +124,9 @@ tags:
   tenant-api: false
   tenant-db: false
 
+  ## Open Policy Agent is used to determine what's authorised.
+  opa: true
+
 ## These are the external jobs that pull data in from other data portals. A default is provided here for you.
 connectors:
   ## Whether to run an initial job to crawl all these on install
@@ -467,7 +470,7 @@ gateway:
 # session-db:
 
 ## The server used for serving the web application to users.
-# web-server:
+web-server:
   ## Autoscaler settings - the min and max number of pods to use
   # autoscaler:
   #   minReplicas: 2
@@ -490,6 +493,12 @@ gateway:
 
   ## The id of the organization to display by default in the Add Dataset flow.
   # defaultOrganizationId: "abc"
+  featureFlags:
+    cataloguing: true
+  vocabularyApiEndpoints:
+    - "https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json"
+    - "https://vocabs.ands.org.au/repository/api/lda/neii/australian-landscape-water-balance/version-1/concept.json"
+    - "https://vocabs.ands.org.au/repository/api/lda/ands-nc/controlled-vocabulary-for-resource-type-genres/version-1-1/concept.json"
 
 
 ## Settings for the broken link minion, which crawls URLs of distributions in order

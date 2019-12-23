@@ -11,7 +11,7 @@ If you want to run it locally in something like Minikube, or want to be a bit mo
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/magda-io/magda-config.git
+git clone --single-branch --branch 0.0.56 https://github.com/magda-io/magda-config.git
 ```
 
 or download it with the "Clone or download" button in Github.
