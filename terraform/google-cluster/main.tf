@@ -36,13 +36,6 @@ resource "google_container_cluster" "primary_magda_cluster" {
       issue_client_certificate = false
     }
   }
-
-  addons_config {
-    kubernetes_dashboard {
-      disabled = var.kubernetes_dashboard ? false : true
-    }
-  }
-
 }
 
 resource "google_container_node_pool" "primary_magda_node_pool" {

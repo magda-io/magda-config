@@ -64,7 +64,6 @@ module "cluster" {
   source               = "../google-cluster"
   project              = var.project
   region               = var.region
-  kubernetes_dashboard = var.kubernetes_dashboard
   machine_type         = var.cluster_node_pool_machine_type
 }
 
