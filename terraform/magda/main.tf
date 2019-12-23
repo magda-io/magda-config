@@ -99,12 +99,13 @@ resource "kubernetes_namespace" "magda_namespace" {
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
-  repository   = "https://charts.magda.io/"
-  chart        = "magda"
-  version      = var.magda_version
-  devel        = var.allow_dev_magda_version
-  timeout      = 1800
-  force_update = true
+  repository    = "https://charts.magda.io/"
+  chart         = "magda"
+  version       = var.magda_version
+  devel         = var.allow_dev_magda_version
+  timeout       = 1800
+  force_update  = true
+  recreate_pods = true
 
   namespace = var.namespace
 
