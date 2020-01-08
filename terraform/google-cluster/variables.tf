@@ -41,9 +41,3 @@ variable "cluster_name" {
   description = "the name of the cluster pool. Auto generate if not supplied"
   default = "main-magda-cluster"
 }
-
-variable "kubernetes_dashboard" {
-  type  = bool
-  description = "Whether turn on kubernetes_dashboard or not; Default: false"
-  default = false
-}
