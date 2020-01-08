@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "google_compute_global_address" "external_ip" {
-  provider = "google-beta"
+  provider = google-beta
   name = var.name
   address_type = "EXTERNAL"
   ip_version = "IPV4"

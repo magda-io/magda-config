@@ -6,12 +6,14 @@ This is a simple boilerplate that allows you to quickly set up a Magda instance 
 
 For new users setting up Magda for the first time we recommend using these instructions - these use [Terraform](https://www.terraform.io/intro/index.html) to set you up with a instance running on Google Cloud Engine very quickly (about 5 minutes of entering commands / editing config and 20 minutes of waiting), and gives you a basic instance, and in another 30-60 minutes of waiting will get you HTTPS working on your own domain.
 
+Note that this will install the latest _published_ version, for the latest release candidate use https://github.com/magda-io/magda-config/tree/0.0.56
+
 If you want to run it locally in something like Minikube, or want to be a bit more direct, the old quickstart is still available at [legacy.md](./legacy.md).
 
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/magda-io/magda-config.git
+git clone --single-branch --branch 0.0.56 https://github.com/magda-io/magda-config.git
 ```
 
 or download it with the "Clone or download" button in Github.
@@ -86,7 +88,7 @@ export SERVICE_ACCOUNT_EMAIL=[your-service-account-email]
 First go to the `terraform/magda` directory inside your cloned version of this repository.
 
 ```bash
-cd terraform/magda
+cd magda-config/terraform/magda
 ```
 
 ```bash

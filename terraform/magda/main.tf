@@ -2,20 +2,25 @@ terraform {
   # The modules used in this example have been updated with 0.12 syntax, which means the example is no longer
   # compatible with any versions below 0.12.
   required_version = ">= 0.12"
+  required_providers {
+    helm       = "0.10.2"
+    kubernetes = "1.10.0"
+    random     = "2.2.1"
+  }
 }
 
 provider "google-beta" {
   version     = ">= 2.11.0"
   project     = var.project
   region      = var.region
-  credentials = "${var.credential_file_path}"
+  credentials = var.credential_file_path
 }
 
 provider "google" {
   version     = ">= 2.11.0"
   project     = var.project
   region      = var.region
-  credentials = "${var.credential_file_path}"
+  credentials = var.credential_file_path
 }
 
 locals {
@@ -59,7 +64,6 @@ module "cluster" {
   source               = "../google-cluster"
   project              = var.project
   region               = var.region
-  kubernetes_dashboard = var.kubernetes_dashboard
   machine_type         = var.cluster_node_pool_machine_type
 }
 
@@ -85,7 +89,7 @@ resource "kubernetes_cluster_role_binding" "default_service_acc_role_binding" {
 
 resource "kubernetes_namespace" "magda_namespace" {
   metadata {
-    name = "${var.namespace}"
+    name = var.namespace
   }
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding
@@ -95,28 +99,32 @@ resource "kubernetes_namespace" "magda_namespace" {
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
-  repository = "https://charts.magda.io/"
-  chart      = "magda"
-  timeout    = 1800
+  repository    = "https://charts.magda.io/"
+  chart         = "magda"
+  version       = var.magda_version
+  devel         = var.allow_dev_magda_version
+  timeout       = 1800
+  force_update  = true
+  recreate_pods = true
 
-  namespace = "${var.namespace}"
+  namespace = var.namespace
 
   values = [
     "${file("../../config.yaml")}"
   ]
 
   set {
-    name  = "externalUrl"
+    name  = "global.externalUrl"
     value = local.runtime_external_url
   }
 
   set {
-    name  = "useCombinedDb"
+    name  = "global.useCombinedDb"
     value = true
   }
 
   set {
-    name  = "useCloudSql"
+    name  = "global.useCloudSql"
     value = false
   }
 
