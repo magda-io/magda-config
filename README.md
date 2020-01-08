@@ -86,7 +86,7 @@ export SERVICE_ACCOUNT_EMAIL=[your-service-account-email]
 First go to the `terraform/magda` directory inside your cloned version of this repository.
 
 ```bash
-cd terraform/magda
+cd magda-config/terraform/magda
 ```
 
 ```bash
