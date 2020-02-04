@@ -79,11 +79,6 @@ global:
   enablePriorityClass: false
   exposeNodePorts: false
   externalUrl: https://demo.dev.magda.io
-  image:
-    imagePullSecret: regcred
-    pullPolicy: Always
-    repository: registry.gitlab.com/magda-data/magda/data61
-    tag: demo
   namespace: demo
   rollingUpdate:
     maxUnavailable: 1000
@@ -118,6 +113,7 @@ tags:
 web-server:
   featureFlags:
     cataloguing: true
+    previewAddDataset: true
   vocabularyApiEndpoints:
   - https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json
   - https://vocabs.ands.org.au/repository/api/lda/neii/australian-landscape-water-balance/version-1/concept.json
