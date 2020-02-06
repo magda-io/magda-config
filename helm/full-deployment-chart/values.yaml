@@ -1,0 +1,56 @@
+global:
+  enablePriorityClass: false
+  
+tags:
+  all: false
+  apidocs-server: true
+  admin-api: false
+  authorization-api: true
+  authorization-db: true
+  cloud-sql-proxy: false
+  combined-db: true
+  content-api: true
+  content-db: true
+  correspondence-api: false
+  elasticsearch: true
+  gateway: true
+  indexer: true
+  preview-map: true
+  registry-api: true
+  registry-db: true
+  search-api: true
+  session-db: true
+  minion-broken-link: false
+  minion-linked-data-rating: false
+  minion-visualization: false
+  minion-format: false
+  web-server: false
+  ingress: false
+  connectors: false
+  dga-connector: true
+  another-ckan-connector: true
+
+magda:
+  gateway:
+    routes:
+      search:
+        to: http://search-api/v0
+      registry:
+        to: http://registry-api-read-only/v0
+      registry-auth:
+        to: http://registry-api/v0
+        auth: true
+      auth:
+        to: http://authorization-api/v0/public
+        auth: true
+      admin:
+        to: http://admin-api/v0
+        auth: true
+      content:
+        to: http://content-api/v0
+      correspondence:
+        to: http://correspondence-api/v0/public
+      apidocs:
+        to: http://apidocs-server/
+        redirectTrailingSlash: true
+
