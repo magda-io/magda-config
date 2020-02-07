@@ -1,23 +1,22 @@
 dependencies:
   - name: magda
     version: 0.0.56-RC6
-    repository: https://charts.magda.io/
+    repository: https://charts.magda.io
   # Magda chart is always enabled.
   # Thus, no tags or condition are reuqired.
   # You should set its sub-chart to enabled or not.
     
   - name: magda-ckan-connector
     alias: dga-connector
-    version: 0.0.57-0-beta-1
-    repository: https://magda-io.github.io/magda-ckan-connector
+    version: 0.0.57-0
+    repository: https://charts.magda.io
     tags:
       - all
       - dga-connector
 
-  - name: magda-ckan-connector
-    alias: another-ckan-connector
-    version: 0.0.57-0-beta-1
-    repository: https://magda-io.github.io/magda-ckan-connector
+  - name: magda-minion-format
+    version: 0.0.57-0
+    repository: https://charts.magda.io
     tags:
       - all
-      - another-ckan-connector
+      - magda-minion-format

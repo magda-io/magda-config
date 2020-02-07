@@ -27,8 +27,6 @@ tags:
   web-server: false
   ingress: false
   connectors: false
-  dga-connector: true
-  another-ckan-connector: true
 
 magda:
   gateway:

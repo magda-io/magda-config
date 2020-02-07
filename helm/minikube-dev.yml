@@ -58,11 +58,20 @@ magda:
           startDateRegex: "(start|st).*(date|dt|year|decade)"
           endDateRegex: "(end).*(date|dt|year|decade)"
 
-dag-connector:
+tags:
+  dga-connector: true
+  magda-minion-format: true
+
+magda-minion-format:
+  image:
+    repository: docker.io/data61
+    tag: 0.0.57-0
+
+dga-connector:
   includeCronJobs: false
   image:
-    name: "data61/magda-ckan-connector"
-    repository: docker.io
+    repository: docker.io/data61
+    tag: 0.0.57-0
   config:
     id: dga
     name: "data.gov.au"
@@ -71,17 +80,4 @@ dag-connector:
     schedule: "0 * * * *"
     ignoreHarvestSources: ["*"]
 
-## another ckan
-another-ckan-connector:
-  includeCronJobs: false
-  image:
-    name: "data61/magda-ckan-connector"
-    repository: docker.io
-  config:
-    id: another-ckan
-    name: "another connector"
-    sourceUrl: "https://another.dsd.com/"
-    pageSize: 1000
-    schedule: "0 * * * *"
-    ignoreHarvestSources: ["*"]
       
