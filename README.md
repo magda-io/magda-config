@@ -2,13 +2,21 @@
 
 This is a simple boilerplate that allows you to quickly set up a Magda instance - the idea is that you can fork this config, commit changes but keep merging in master in order to stay up to date.
 
-## Quickstart Instructions
+## ⚠️ Warning: Work in Progress ⚠️
+With this repo we're trying to make it as easy to get started with Magda as possible... but we're not there yet. To setup Magda in a similar configuration to [data.gov.au](https://data.gov.au) (i.e. an openly-available, pure-open-data search engine) is _fairly_ simple, but using other features (e.g. Add Dataset, the Admin UI) will almost certainly result in getting stuck in some way that requires Kubernetes skills to get out of.
+
+This doesn't mean you shouldn't try, and we're happy to answer any questions you have on our [Spectrum Forum](https://spectrum.chat/magda). Just be aware that at best, this repo works a bit like a Linux installer - it can get you started easily, but if you want to mess around you'll still have to learn how it works.
+
+## Getting Started
+How you get started with Magda will depend on where you're starting from:
+- **I have nothing already set up, and I'm happy to run everything on Google Cloud through Terraform**: Please use the instructions below.
+- **I want to use a local environment, cloud environment other than Google Cloud, or I just don't like Terraform**: Please use the guide at [legacy.md](./legacy.md). Note that this is a bit harder than just letting terraform do the heavy lifting for you, but you'll also learn more along the way.
+
+## Quickstart Instructions - Terraform
 
 For new users setting up Magda for the first time we recommend using these instructions - these use [Terraform](https://www.terraform.io/intro/index.html) to set you up with a instance running on Google Cloud Engine very quickly (about 5 minutes of entering commands / editing config and 20 minutes of waiting), and gives you a basic instance, and in another 30-60 minutes of waiting will get you HTTPS working on your own domain.
 
 Note that this will install the latest _published_ version, for the latest release candidate use https://github.com/magda-io/magda-config/tree/0.0.56
-
-If you want to run it locally in something like Minikube, or want to be a bit more direct, the old quickstart is still available at [legacy.md](./legacy.md).
 
 ### 1. Clone this repo
 
@@ -209,3 +217,25 @@ Use `kubectl get pods` to see all of the running containers and `kubectl logs -f
 - Set `scssVars` in [config.yaml](./config.yaml) to change the colours
 - Ask us questions on https://spectrum.chat/magda
 - Send us an email at contact@magda.io to tell us about your new Magda server.
+
+## FAQ
+### How do I make myself an admin?
+This is harder than it should be at this point.
+1. Log in
+2. Use `kubectl port-forward combined-db-0 5432 -n <your-namespace>` to get a connection to the database
+3. Get your db password out of the `db-passwords` secret - in bash you can use 
+```bash
+kubectl get secrets db-passwords -o yaml -n <your namespace> | grep authorization-db: | awk '{print $2}' | base64 -D
+```
+or you can just use `kubectl get secrets db-passwords -o yaml -n <your namespace>` to get the secret then base64 decode it to get the password.
+4. Open your postgres management tool of choice (e.g. pgadmin4) Use that password to log in to the database (on port 5432) with user `postgres`.
+5. Go to the authorization-db, find the users table, find yourself and set `isAdmin` to `true`.
+
+### Where's the admin UI?
+We still don't have a good one - there's a first prototype at `/auth/admin` and a second prototype at `/admin`. In either case you need to be an admin before you can access it.
+
+### How do I authorise API access?
+Currently we don't have a good way of doing this other than logging in manually and getting the cookie. We'd love a PR for this!
+
+### How do I add a new dataset
+You can access this at `/dataset/add` after turning `web-server.featureFlags.cataloguing` to true in `values.yaml`, and making yourself an admin. Note that this is very much a work in progress, and we've only designed it to take into account the needs of the Australian government so far.
