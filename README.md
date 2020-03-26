@@ -16,8 +16,6 @@ How you get started with Magda will depend on where you're starting from:
 
 For new users setting up Magda for the first time we recommend using these instructions - these use [Terraform](https://www.terraform.io/intro/index.html) to set you up with a instance running on Google Cloud Engine very quickly (about 5 minutes of entering commands / editing config and 20 minutes of waiting), and gives you a basic instance, and in another 30-60 minutes of waiting will get you HTTPS working on your own domain.
 
-Note that this will install the latest _published_ version, for the latest release candidate use https://github.com/magda-io/magda-config/tree/0.0.56
-
 ### 1. Clone this repo
 
 ```bash
