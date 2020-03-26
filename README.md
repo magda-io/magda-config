@@ -19,7 +19,7 @@ For new users setting up Magda for the first time we recommend using these instr
 ### 1. Clone this repo
 
 ```bash
-git clone --single-branch --branch 0.0.56 https://github.com/magda-io/magda-config.git
+git clone --single-branch --branch master https://github.com/magda-io/magda-config.git
 ```
 
 or download it with the "Clone or download" button in Github.
