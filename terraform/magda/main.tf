@@ -3,7 +3,7 @@ terraform {
   # compatible with any versions below 0.12.
   required_version = ">= 0.12"
   required_providers {
-    helm       = "0.10.4"
+    helm       = "0.10.2"
     kubernetes = "1.10.0"
     random     = "2.2.1"
   }
@@ -105,7 +105,8 @@ resource "helm_release" "magda_helm_release" {
   devel         = var.allow_dev_magda_version
   timeout       = 3600
   force_update  = true
-  recreate_pods = true
+  recreate_pods = false
+  wait          = true
 
   namespace = var.namespace
 

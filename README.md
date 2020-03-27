@@ -237,3 +237,8 @@ Currently we don't have a good way of doing this other than logging in manually 
 
 ### How do I add a new dataset
 You can access this at `/dataset/add` after turning `web-server.featureFlags.cataloguing` to true in `values.yaml`, and making yourself an admin. Note that this is very much a work in progress, and we've only designed it to take into account the needs of the Australian government so far.
+
+## Troubleshooting
+- If something goes wrong, often you can fix it by just running `terraform apply` again.
+- If that fails, and you've got up to the `helm release` stage, you can try deleting the helm release by running `terraform taint helm_release.magda_helm_release` then `terraform apply` again. Note that this will probably destroy any data you've entered so far.
+- If _that_ fails, you can start the entire process from scratch by running `terraform destroy` and re-running `terraform apply`. This will definitely destroy any data you've entered so far.
