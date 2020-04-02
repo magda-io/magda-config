@@ -24,6 +24,8 @@ helm init --service-account tiller
     # OR
     create-secrets\index.win.exe
 ```
+You need to unset your `NODE_OPTIONS` env variable if you run into `Pkg: FLAGS_MISMATCH` while running the secrets script.
+
 Output should look something like so:
 ```
 magda-create-secrets tool 
