@@ -12,6 +12,8 @@ How you get started with Magda will depend on where you're starting from:
 - **I have nothing already set up, and I'm happy to run everything on Google Cloud through Terraform**: Please use the instructions below.
 - **I want to use a local environment, cloud environment other than Google Cloud, or I just don't like Terraform**: Please use the guide at [legacy.md](./legacy.md). Note that this is a bit harder than just letting terraform do the heavy lifting for you, but you'll also learn more along the way.
 
+> NOTE: Since version `v0.0.57-0`, Magda requires Helm v3 to deploy. The Terraform helm provider has been upgraded to version 1.1.1 to support Helm v3. If you previously deployed an older version (e.g. v0.0.56-RC6) Magda, please refer to [this migration document](https://github.com/magda-io/magda/blob/8979f9e2322c2d94b0c0dcc893f190680667fa35/docs/docs/migration/v0.0.56-RC6-to-v0.0.57-0.md) to upgrade your release before use terraform to upgrade your existing release to a newer version. 
+
 ## Quickstart Instructions - Terraform
 
 For new users setting up Magda for the first time we recommend using these instructions - these use [Terraform](https://www.terraform.io/intro/index.html) to set you up with a instance running on Google Cloud Engine very quickly (about 5 minutes of entering commands / editing config and 20 minutes of waiting), and gives you a basic instance, and in another 30-60 minutes of waiting will get you HTTPS working on your own domain.

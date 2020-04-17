@@ -3,7 +3,7 @@ terraform {
   # compatible with any versions below 0.12.
   required_version = ">= 0.12"
   required_providers {
-    helm       = "0.10.2"
+    helm       = "1.1.1"
     kubernetes = "1.10.0"
     random     = "2.2.1"
   }
