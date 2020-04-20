@@ -42,7 +42,7 @@ global:
     # imagePullSecret: ""
 
   ## Specify the shared common settings for all connectors
-  connectors:
+  # connectors:
 
     ## Whether to run an initial job to crawl all these on install
     ## includeInitialJobs: false
@@ -50,22 +50,22 @@ global:
     ## Whether to run recurring jobs on the schedule.
     ## includeCronJobs: true
 
-    # Remove the image section to make connectors pull your test docker images from your local docker registry
-    # Make sure you build & push the connector docker images to your local docker registry
-    image:
-      repository: docker.io/data61
-      tag: 0.0.57-0
-      pullPolicy: IfNotPresent
-      imagePullSecret: false
+    # Set default image setting for all connectors. 
+    # You may explicitly set all connectors to use images from docker hub while load magda-core images from a private docker registry
+    # image:
+    #   repository: docker.io/data61
+    #   tag: 0.0.57-0
+    #   pullPolicy: IfNotPresent
+    #   imagePullSecret: false
   ## Specify the shared common settings for all minions
-  minions:
-    # Remove the image section to make minions pull your test docker images from local docker registry
-    # Make sure you build & push the connector docker images to your local docker registry
-    image:
-      repository: docker.io/data61
-      tag: 0.0.57-0
-      pullPolicy: IfNotPresent
-      imagePullSecret: false
+  # minions:
+    # Set default image setting for all minions. 
+    # You may explicitly set all minions to use images from docker hub while load magda-core images from a private docker registry
+    # image:
+    #   repository: docker.io/data61
+    #   tag: 0.0.57-0
+    #   pullPolicy: IfNotPresent
+    #   imagePullSecret: false
 
   ## Whether to expose the node ports of the pods in the cluster - useful for
   ## development, because it allows you to connect directly to pods without using
@@ -448,6 +448,11 @@ magda-core:
 
   ## Configures the TerriaJS server responsible for serving preview maps.
   # preview-map:
+  #   image:
+  #     repository: docker.io/data61
+  #     tag: 0.0.57-0
+  #     pullPolicy: IfNotPresent
+  #     imagePullSecret: false
 
   ## Configures the registry, which holds information about datasets, distributions,
   ## organisations etc and distributes it.
