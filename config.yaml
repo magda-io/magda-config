@@ -368,10 +368,7 @@ magda-core:
 
   ## The gateway accepts incoming connections and directs them to the appropriate api pod,
   ## or the web server pod
-  gateway:
-    # Whether enable the AuthEndpoint
-    # If it's off, you won't be able to login to Magda
-    enableAuthEndpoint: true
+  gateway:    
     service:
       ## The type of kubernetes service to use for the gateway - set to LoadBalancer to
       ## expose an external IP, or set to "NodePort" if using an ingress
@@ -383,7 +380,7 @@ magda-core:
 
     ## If replacing a CKAN installation with Magda, this will redirect CKAN paths without
     ## direct magda equivalents (e.g. the API) to a ckan installation at this domain and path
-    # enableCkanRedirection: true
+    enableCkanRedirection: false
     # ckanRedirectionDomain: "example.com"
     # ckanRedirectionPath: "/data"
 
@@ -397,13 +394,13 @@ magda-core:
       # maxReplicas: 4
 
     ## Client ids to use for OAuth authentication
-    # auth:
+    auth:
       ## Client id for facebook
       # facebookClientId: ""
       ## Client id for google
       # googleClientId: ""
       ## If you want to use ckan as a way to login, put the base URL here
-      # ckanAuthenticationUrl: https://example.com
+      ckanAuthenticationUrl: https://data.gov.au/data
       ## If you want to use the Australian Department of Industry's VANguard service, put the details here:
       # vanguardWsFedIdpUrl: https://authentication.business.gov.au/fas/v2/wsfed12/authenticate
       # vanguardWsFedRealm: your-realm-here
@@ -430,13 +427,13 @@ magda-core:
     ## Enables authorization, include a list of authorization options at /auth/providers
     ## and a simple form at /auth that allows you to test login and logout functionality
     ## without needing a web pod
-    # enableAuthEndpoint: false
+    enableAuthEndpoint: true
 
     ## Redirect HTTP urls to HTTPs urls
-    # enableHttpsRedirection: false
+    enableHttpsRedirection: false
 
     ## Turn on HTTP basic authentication - this uses secrets created by the create-secret script
-    # enableWebAccessControl: false
+    enableWebAccessControl: false
 
   ## Configures the service that puts datasets and organisations into elasticsearch
   # indexer:
