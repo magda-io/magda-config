@@ -96,6 +96,33 @@ resource "kubernetes_namespace" "magda_namespace" {
   ]
 }
 
+resource "kubernetes_namespace" "magda_openfaas_namespace" {
+  metadata {
+    name = "${var.namespace}-openfaas"
+    labels = {
+      role: "openfaas-system"
+      access: "openfaas-system"
+      istio-injection: "enabled"
+    }
+  }
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding
+  ]
+}
+
+resource "kubernetes_namespace" "magda_openfaas_fn_namespace" {
+  metadata {
+    name = "${var.namespace}-openfaas-fn"
+    labels = {
+      role: "openfaas-fn"
+      istio-injection: "enabled"
+    }
+  }
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding
+  ]
+}
+
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
@@ -140,13 +167,36 @@ resource "helm_release" "magda_helm_release" {
   }
 
   set {
-    name  = "gateway.service.type"
+    name  = "magda-core.gateway.service.type"
     value = "NodePort"
+  }
+
+  # turn off auto namespace creation as terraform handles it better (and helm provider behave differently)
+  set {
+    name  = "magde-core.openfaas.createMainNamespace"
+    value = false
+  }
+
+  set {
+    name  = "magde-core.openfaas.createFunctionNamespace"
+    value = false
+  }
+
+  set {
+    name  = "global.openfaas.mainNamespace"
+    value = "${var.namespace}-openfaas"
+  }
+
+  set {
+    name  = "global.openfaas.namespacePrefix"
+    value = ""
   }
 
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding,
     kubernetes_namespace.magda_namespace,
+    kubernetes_namespace.magda_openfaas_namespace,
+    kubernetes_namespace.magda_openfaas_fn_namespace,
     kubernetes_secret.auth_secrets,
     kubernetes_secret.db_passwords
   ]
