@@ -186,7 +186,7 @@ resource "helm_release" "magda_helm_release" {
 
   set {
     name  = "global.openfaas.mainNamespace"
-    value = "${var.namespace}-openfaas"
+    value = "openfaas"
   }
 
   set {
