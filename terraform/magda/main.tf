@@ -134,6 +134,8 @@ resource "helm_release" "magda_helm_release" {
   force_update  = true
   recreate_pods = false
   wait          = true
+  skip_crds     = false
+  atomic        = true
 
   namespace = var.namespace
 
@@ -173,12 +175,12 @@ resource "helm_release" "magda_helm_release" {
 
   # turn off auto namespace creation as terraform handles it better (and helm provider behave differently)
   set {
-    name  = "magde-core.openfaas.createMainNamespace"
+    name  = "magda-core.openfaas.createMainNamespace"
     value = false
   }
 
   set {
-    name  = "magde-core.openfaas.createFunctionNamespace"
+    name  = "magda-core.openfaas.createFunctionNamespace"
     value = false
   }
 

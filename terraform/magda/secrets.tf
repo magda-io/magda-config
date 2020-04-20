@@ -17,17 +17,17 @@ locals {
 }
 
 resource "random_password" "db_password" {
-  length  = 16
+  length  = 32
   special = true
 }
 
 resource "random_password" "jwt_secret" {
-  length  = 16
+  length  = 32
   special = true
 }
 
 resource "random_password" "session_secret" {
-  length  = 16
+  length  = 32
   special = true
 }
 
