@@ -26,7 +26,12 @@ global:
   # rollingUpdate:
   #   maxUnavailable: 0
 
-  #image:
+  ## Setting section for openfass
+  # openfaas:
+  #   # turn off auth over openfass gateway for ease of debugging
+  #   allowAdminOnly: false
+
+  image:
     ## What tag of the magda images to get. Look at
     ## for versions. https://github.com/magda-io/magda/releases/latest.
     ## By default this is the same version as the helm chart.
@@ -151,6 +156,12 @@ tags:
 
   ## Open Policy Agent is used to determine what's authorised.
   opa: true
+
+  ## storage-api is used to store dataset data files
+  storage-api: true
+
+  ## openfaas is used to manage & run serverless workload
+  openfaas: true
 
   ## These are the external jobs that pull data in from other data portals. By default, all connectors are turned on
   ## Here we turn off all connectors for the initial deployment
