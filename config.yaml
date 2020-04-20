@@ -369,6 +369,9 @@ magda-core:
   ## The gateway accepts incoming connections and directs them to the appropriate api pod,
   ## or the web server pod
   gateway:
+    # Whether enable the AuthEndpoint
+    # If it's off, you won't be able to login to Magda
+    enableAuthEndpoint: true
     service:
       ## The type of kubernetes service to use for the gateway - set to LoadBalancer to
       ## expose an external IP, or set to "NodePort" if using an ingress
@@ -532,24 +535,23 @@ magda-core:
       - "https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json"
       - "https://vocabs.ands.org.au/repository/api/lda/neii/australian-landscape-water-balance/version-1/concept.json"
       - "https://vocabs.ands.org.au/repository/api/lda/ands-nc/controlled-vocabulary-for-resource-type-genres/version-1-1/concept.json"
-
-
-  ## Settings for the broken link minion, which crawls URLs of distributions in order
-  ## to determine whether they're still available.
-  # minion-broken-link:
-
-  ## Settings for the format minion, which tries to determine the true format of a
-  ## distribution based on a number of criteria.
-  # minion-format:
-
-  ## Settings for the linked data rating minion, which determines a rating for a dataset
-  ## based off the availability, license and format of a dataset
-  # minion-linked-data-rating:
-
-  ## Settings for the visualization minion, which looks at tabular data in order to
-  ## determine which columns can be charted.
-  # minion-visualization:
-
+  
   # Settings for the admin API, which allows for changes to be made to the magda
   # installation at runtime... e.g. creating new connector jobs
   # admin-api:
+
+## Settings for the broken link minion, which crawls URLs of distributions in order
+## to determine whether they're still available.
+# minion-broken-link:
+
+## Settings for the format minion, which tries to determine the true format of a
+## distribution based on a number of criteria.
+# minion-format:
+
+## Settings for the linked data rating minion, which determines a rating for a dataset
+## based off the availability, license and format of a dataset
+# minion-linked-data-rating:
+
+## Settings for the visualization minion, which looks at tabular data in order to
+## determine which columns can be charted.
+# minion-visualization:
