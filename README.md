@@ -2,6 +2,12 @@
 
 This is a simple boilerplate that allows you to quickly set up a Magda instance - the idea is that you can fork this config, commit changes but keep merging in master in order to stay up to date.
 
+## ⚠️ Warning: Compatibility Issues  ⚠️
+
+We have upgraded our Terraform module to work with Magda v0.0.57-0 or later (using Helm3 Terraform Provier).
+
+If you need the Terraform module to deploy an older version Magda (v0.0.56-RC or earlier), please check out branch [v0.0.56-RC6](https://github.com/magda-io/magda-config/tree/v0.0.56-RC6) and use Terraform module there.
+
 ## ⚠️ Warning: Work in Progress ⚠️
 With this repo we're trying to make it as easy to get started with Magda as possible... but we're not there yet. To setup Magda in a similar configuration to [data.gov.au](https://data.gov.au) (i.e. an openly-available, pure-open-data search engine) is _fairly_ simple, but using other features (e.g. Add Dataset, the Admin UI) will almost certainly result in getting stuck in some way that requires Kubernetes skills to get out of.
 
@@ -242,5 +248,16 @@ You can access this at `/dataset/add` after turning `web-server.featureFlags.cat
 
 ## Troubleshooting
 - If something goes wrong, often you can fix it by just running `terraform apply` again.
-- If that fails, and you've got up to the `helm release` stage, you can try deleting the helm release by running `terraform taint helm_release.magda_helm_release` then `terraform apply` again. Note that this will probably destroy any data you've entered so far.
+- If that fails, and you've got up to the `helm release` stage, you can try deleting the helm release by running:
+
+```bash
+terraform taint helm_release.magda_helm_release
+terraform taint kubernetes_secret.auth_secrets
+terraform taint kubernetes_secret.db_passwords
+terraform taint kubernetes_namespace.magda_namespace
+terraform taint kubernetes_namespace.magda_openfaas_namespace
+terraform taint kubernetes_namespace.magda_openfaas_fn_namespace
+```
+
+And then `terraform apply` again. Note that this will probably destroy any data you've entered so far.
 - If _that_ fails, you can start the entire process from scratch by running `terraform destroy` and re-running `terraform apply`. This will definitely destroy any data you've entered so far.
