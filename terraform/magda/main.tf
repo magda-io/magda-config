@@ -132,10 +132,8 @@ resource "helm_release" "magda_helm_release" {
   devel         = var.allow_dev_magda_version
   timeout       = 3600
   force_update  = true
-  recreate_pods = false
   wait          = true
   skip_crds     = false
-  atomic        = true
 
   namespace = var.namespace
 
@@ -191,7 +189,7 @@ resource "helm_release" "magda_helm_release" {
 
   set {
     name  = "global.openfaas.namespacePrefix"
-    value = ""
+    value = var.namespace
   }
 
   depends_on = [
