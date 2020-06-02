@@ -1,5 +1,5 @@
 # Getting Started
-Before you start you need to get a Kubernetes cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop) on MacOS or Windows, or [Minikube](https://kubernetes.io/docs/setup/minikube/) on Linux. Either way make sure the VM has at least 2 CPUs and 4gb of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
+Before you start you need to get a Kubernetes cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop) on MacOS or Windows, or [Minikube](https://kubernetes.io/docs/setup/minikube/) on Linux. Either way make sure the VM has at least 2 CPUs and 4gb of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/). Make sure that whatever you use has a Kubernetes version of no higher than 1.15 at this point - we'll support higher versions in the next release.
 
 1. Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and [helm 2](https://github.com/helm/helm/releases/tag/v2.16.3) (helm 3 support is coming next release).
 
