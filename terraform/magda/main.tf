@@ -3,7 +3,7 @@ terraform {
   # compatible with any versions below 0.12.
   required_version = ">= 0.12"
   required_providers {
-    helm       = "0.10.2"
+    helm       = "1.1.1"
     kubernetes = "1.10.0"
     random     = "2.2.1"
   }
@@ -96,6 +96,33 @@ resource "kubernetes_namespace" "magda_namespace" {
   ]
 }
 
+resource "kubernetes_namespace" "magda_openfaas_namespace" {
+  metadata {
+    name = "${var.namespace}-openfaas"
+    labels = {
+      role: "openfaas-system"
+      access: "openfaas-system"
+      istio-injection: "enabled"
+    }
+  }
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding
+  ]
+}
+
+resource "kubernetes_namespace" "magda_openfaas_fn_namespace" {
+  metadata {
+    name = "${var.namespace}-openfaas-fn"
+    labels = {
+      role: "openfaas-fn"
+      istio-injection: "enabled"
+    }
+  }
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding
+  ]
+}
+
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
@@ -105,8 +132,8 @@ resource "helm_release" "magda_helm_release" {
   devel         = var.allow_dev_magda_version
   timeout       = 3600
   force_update  = true
-  recreate_pods = false
   wait          = true
+  skip_crds     = false
 
   namespace = var.namespace
 
@@ -140,13 +167,36 @@ resource "helm_release" "magda_helm_release" {
   }
 
   set {
-    name  = "gateway.service.type"
+    name  = "magda-core.gateway.service.type"
     value = "NodePort"
+  }
+
+  # turn off auto namespace creation as terraform handles it better (and helm provider behave differently)
+  set {
+    name  = "magda-core.openfaas.createMainNamespace"
+    value = false
+  }
+
+  set {
+    name  = "magda-core.openfaas.createFunctionNamespace"
+    value = false
+  }
+
+  set {
+    name  = "global.openfaas.mainNamespace"
+    value = "openfaas"
+  }
+
+  set {
+    name  = "global.openfaas.namespacePrefix"
+    value = var.namespace
   }
 
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding,
     kubernetes_namespace.magda_namespace,
+    kubernetes_namespace.magda_openfaas_namespace,
+    kubernetes_namespace.magda_openfaas_fn_namespace,
     kubernetes_secret.auth_secrets,
     kubernetes_secret.db_passwords
   ]

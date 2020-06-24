@@ -9,6 +9,8 @@ locals {
   db_password    = "${var.db_password == null ? random_password.db_password.result : var.db_password}"
   jwt_secret     = "${var.jwt_secret == null ? random_password.jwt_secret.result : var.jwt_secret}"
   session_secret = "${var.session_secret == null ? random_password.session_secret.result : var.session_secret}"
+  storage_access_key     = "${var.storage_access_key == null ? random_password.storage_access_key.result : var.storage_access_key}"
+  storage_access_key_secret     = "${var.storage_access_key_secret == null ? random_password.storage_access_key_secret.result : var.storage_access_key_secret}"
   should_create_oauth_secret = (var.facebook_client_secret == null &&
     var.google_client_secret == null &&
     var.arcgis_client_secret == null &&
@@ -22,12 +24,21 @@ resource "random_password" "db_password" {
 }
 
 resource "random_password" "jwt_secret" {
-  length  = 16
+  length  = 32
   special = true
 }
 
 resource "random_password" "session_secret" {
-  length  = 16
+  length  = 32
+  special = true
+}
+
+resource "random_password" "storage_access_key" {
+  length  = 32
+}
+
+resource "random_password" "storage_access_key_secret" {
+  length  = 32
   special = true
 }
 
@@ -40,6 +51,25 @@ resource "kubernetes_secret" "auth_secrets" {
   data = {
     "jwt-secret"     = "${local.jwt_secret}"
     "session-secret" = "${local.session_secret}"
+  }
+
+  type = "Opaque"
+
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding,
+    kubernetes_namespace.magda_namespace
+  ]
+}
+
+resource "kubernetes_secret" "storage_secrets" {
+  metadata {
+    name      = "storage-secrets"
+    namespace = var.namespace
+  }
+
+  data = {
+    "accesskey"     = "${local.storage_access_key}"
+    "secretkey" = "${local.storage_access_key_secret}"
   }
 
   type = "Opaque"
