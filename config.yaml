@@ -18,7 +18,7 @@ global:
   ## This is used in a number of places, including linking back to the site
   ## from emails, creating a absolute sitemap URL for robots.txt, etc.
   externalUrl: https://example.com
-
+  
   ## How to handle rolling updates during a deployment. If set to 0, kubernetes
   ## will happily take down pods while it replaces them (useful for dev setups).
   ## If set to 1, kubernetes will make sure one pod is available to take requests
@@ -62,6 +62,7 @@ global:
     #   tag: 0.0.57-0
     #   pullPolicy: IfNotPresent
     #   imagePullSecret: false
+
   ## Specify the shared common settings for all minions
   # minions:
     # Set default image setting for all minions. 
@@ -71,6 +72,14 @@ global:
     #   tag: 0.0.57-0
     #   pullPolicy: IfNotPresent
     #   imagePullSecret: false
+
+  ## Specify the shared common settings for all URL processor functions
+  # urlProcessors:
+    # image:
+      # repository: docker.io/data61
+      # tag: 0.0.57-0
+      # pullPolicy: IfNotPresent
+      # imagePullSecret: false
 
   ## Whether to expose the node ports of the pods in the cluster - useful for
   ## development, because it allows you to connect directly to pods without using
@@ -102,6 +111,21 @@ global:
 
   ## Whether to enable multi-tenancy (pre-alpha)
   # enableMultiTenants: false
+
+  ## An email to direct user questions to 
+  # defaultContactEmail: blah@example.com
+
+  ## Settings for configuring Open Functions as a Service, which is used for some inconsistent
+  ## workloads in Magda
+  # openfaas:
+      ## Simple way to prefix the extra namespaces created for openfaas
+      # namespacePrefix: ""
+      ## Namespace to use to run the openfaas infrastructure (gateway, prometheus etc)
+      # mainNamespace: openfaas
+      ## Namespace to use to run functions (this will be empty unless a function is deployed)
+      # functionNamespace: openfaas-fn
+      ## Only allow someone who's logged into magda as an admin to access the openfaas gateway
+      # allowAdminOnly: true
 
 ## Tags allow for services to be turned on and off on the fly... e.g. if you don't need
 ## to send emails, turn the correspondence-api off
@@ -166,8 +190,12 @@ tags:
   ## These are the external jobs that pull data in from other data portals. By default, all connectors are turned on
   ## Here we turn off all connectors for the initial deployment
   connectors: false
+
   ## You may want to turn DGA connector on after the initial deployment to generate some data
   ## connector-dga: true
+
+  ## url processors are used in the add dataset flow to allow metadata to be scraped from data portals and APIs
+  url-processors: true
 
 ## This is the config for the DGA connector. Only take effect if the connector is turned on with the `connector-dga` tag above
 ## More config examples can be found from [here](https://github.com/magda-io/magda/blob/master/deploy/helm/magda/values.yaml#L26)
