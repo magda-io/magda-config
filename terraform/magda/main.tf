@@ -126,8 +126,8 @@ resource "kubernetes_namespace" "magda_openfaas_fn_namespace" {
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
-  repository    = "https://charts.magda.io/"
-  chart         = "magda"
+  repository    = "../.."
+  chart         = "chart"
   version       = var.magda_version
   devel         = var.allow_dev_magda_version
   timeout       = 3600

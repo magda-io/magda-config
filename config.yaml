@@ -197,16 +197,18 @@ tags:
   connectors: false
 
   ## You may want to turn DGA connector on after the initial deployment to generate some data
-  connector-dga: false
+  # connector-dga: true
 
   ## url processors are used in the add dataset flow to allow metadata to be scraped from data portals and APIs
   url-processors: false
+
+  minion-ckan-exporter: false
 
 ## This is the config for the DGA connector. Only take effect if the connector is turned on with the `connector-dga` tag above
 ## More config examples can be found from [here](https://github.com/magda-io/magda/blob/master/deploy/helm/magda/values.yaml#L26)
 connector-dga:
   ## Whether to run an initial job to crawl all these on install
-  ## includeInitialJobs: false
+  # includeInitialJobs: true
 
   ## Whether to run recurring jobs on the schedule specified per connector.
   # includeCronJobs: true
