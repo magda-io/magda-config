@@ -30,14 +30,14 @@ global:
     ## What tag of the magda images to get. Look at
     ## for versions. https://github.com/magda-io/magda/releases/latest.
     ## By default this is the same version as the helm chart.
-    # tag:
+    tag: 0.0.57-0
     ## The docker repository to get the images from - defaults to the official
     ## data61 docker hub repo
-    # repository: data61
+    repository: docker.io/data61
     ## The imagePullPolicy to use for images - generally unless you're actively
     ## trying to track development this should be "IfNotPresent", otherwise if
     ## you are it can be "Always". Defaults to "IfNotPresent"
-    # pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
     ## Kubernetes secret to use if you're fetching images from a private repository
     # imagePullSecret: ""
 

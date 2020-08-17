@@ -147,10 +147,6 @@ resource "helm_release" "magda_helm_release" {
 
   namespace = var.namespace
 
-  values = [
-    "${file("../../config.yaml")}"
-  ]
-
   set {
     name  = "global.externalUrl"
     value = local.runtime_external_url

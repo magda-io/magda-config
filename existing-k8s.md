@@ -9,7 +9,7 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 4. Install [kubernetes-replicator](https://github.com/mittwald/kubernetes-replicator) to your cluster (as per [instructions here](https://github.com/magda-io/magda/blob/master/docs/docs/building-and-running.md#install-kubernetes-replicator)) if you haven't done so.
 
-5. Look at config.yaml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+5. Look at [values.yaml](./chart/values.yaml) and make sure to customise the uncommented lines. Everything else can be left as default for now.
 
 6. Run the create secrets script in a command line and follow the prompts
 ```bash
@@ -61,7 +61,7 @@ helm dep up ./chart
 
 9. Install magda
 ```bash
-helm upgrade --install --timeout 9999s --debug --wait -f ./config.yaml magda ./chart
+helm upgrade --install --timeout 9999s --debug --wait magda ./chart
 ```
 
 This will take a while for it to get everything set up.
@@ -89,5 +89,5 @@ helm repo update
 
 3. Run:
 ```
-helm upgrade --install --timeout 9999s --debug --wait -f ./config.yaml magda ./chart
+helm upgrade --install --timeout 9999s --debug --wait magda ./chart
 ```
