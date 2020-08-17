@@ -129,7 +129,7 @@ resource "helm_release" "kr_helm_release" {
 
 resource "null_resource" "update_helm_chart" {
   provisioner "local-exec" {
-    command = "helm repo add magda-io https://charts.magda.io && helm dep up ../../chart"
+    command = "rm -Rf ../../chart/charts && helm repo add magda-io https://charts.magda.io && helm dep up ../../chart"
   }
 }
 
