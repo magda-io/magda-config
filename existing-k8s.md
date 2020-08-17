@@ -7,9 +7,11 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 3. `git clone` it to your local machine open a terminal in the directory
 
-4. Look at config.yaml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+4. Install [kubernetes-replicator](https://github.com/mittwald/kubernetes-replicator) to your cluster (as per [instructions here](https://github.com/magda-io/magda/blob/master/docs/docs/building-and-running.md#install-kubernetes-replicator)) if you haven't done so.
 
-5. Run the create secrets script in a command line and follow the prompts
+5. Look at config.yaml and make sure to customise the uncommented lines. Everything else can be left as default for now.
+
+6. Run the create secrets script in a command line and follow the prompts
 ```bash
     ./create-secrets/index-linux
     # OR
@@ -47,24 +49,24 @@ All required secrets have been successfully created!
 kubectl apply -f role-binding.yaml
 ```
 
-6. Add the magda chart repo to helm
+7. Add the magda chart repo to helm
 ```bash
 helm repo add magda-io https://charts.magda.io
 ```
 
-7. Build the local chart
+8. Build the local chart
 ```bash
 helm dep up ./chart
 ```
 
-8. Install magda
+9. Install magda
 ```bash
 helm upgrade --install --timeout 9999s --debug --wait -f ./config.yaml magda ./chart
 ```
 
 This will take a while for it to get everything set up.
 
-9. Connect to your instance:
+10. Connect to your instance:
 - **On the cloud or docker for desktop** Once helm is finished, run `kubectl get services -w` and wait for `gateway` to receive an external IP. It'll look something like this on kubectl or docker for desktop.
 - **On minikube**, you'll just have to run `minikube ip` and keep refreshing it with the node port below until it comes up.
 
