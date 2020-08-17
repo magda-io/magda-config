@@ -131,7 +131,7 @@ tags:
   # experimental ability to deploy connector jobs from an api instead of helm
   admin-api: false
 
-  # static nginx server that shows the API
+  # static nginx server that shows the API Docs
   apidocs-server: true
 
   # controls authorization and some authentication features
