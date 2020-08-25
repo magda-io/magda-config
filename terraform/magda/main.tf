@@ -3,9 +3,10 @@ terraform {
   # compatible with any versions below 0.12.
   required_version = ">= 0.12"
   required_providers {
-    helm       = "1.1.1"
+    helm       = "1.2.4"
     kubernetes = "1.10.0"
     random     = "2.2.1"
+    null       = "2.1.2"
   }
 }
 
@@ -87,6 +88,15 @@ resource "kubernetes_cluster_role_binding" "default_service_acc_role_binding" {
   ]
 }
 
+resource "kubernetes_namespace" "kr_namespace" {
+  metadata {
+    name = "kubernetes-replicator"
+  }
+  depends_on = [
+    kubernetes_cluster_role_binding.default_service_acc_role_binding
+  ]
+}
+
 resource "kubernetes_namespace" "magda_namespace" {
   metadata {
     name = var.namespace
@@ -96,38 +106,38 @@ resource "kubernetes_namespace" "magda_namespace" {
   ]
 }
 
-resource "kubernetes_namespace" "magda_openfaas_namespace" {
-  metadata {
-    name = "${var.namespace}-openfaas"
-    labels = {
-      role: "openfaas-system"
-      access: "openfaas-system"
-      istio-injection: "enabled"
-    }
-  }
+resource "helm_release" "kr_helm_release" {
+  name = "magda"
+  # or repository = "../../helm" for local repo
+  repository    = "https://helm.mittwald.de"
+  chart         = "kubernetes-replicator"
+  timeout       = 600
+  force_update  = true
+  wait          = true
+  skip_crds     = false
+
+  namespace = "kubernetes-replicator"
+
   depends_on = [
-    kubernetes_cluster_role_binding.default_service_acc_role_binding
+    kubernetes_cluster_role_binding.default_service_acc_role_binding,
+    kubernetes_namespace.magda_namespace,
+    kubernetes_namespace.kr_namespace,
+    kubernetes_secret.auth_secrets,
+    kubernetes_secret.db_passwords
   ]
 }
 
-resource "kubernetes_namespace" "magda_openfaas_fn_namespace" {
-  metadata {
-    name = "${var.namespace}-openfaas-fn"
-    labels = {
-      role: "openfaas-fn"
-      istio-injection: "enabled"
-    }
+resource "null_resource" "update_helm_chart" {
+  provisioner "local-exec" {
+    command = "rm -Rf ../../chart/charts && helm repo add magda-io https://charts.magda.io && helm dep up ../../chart"
   }
-  depends_on = [
-    kubernetes_cluster_role_binding.default_service_acc_role_binding
-  ]
 }
 
 resource "helm_release" "magda_helm_release" {
   name = "magda"
   # or repository = "../../helm" for local repo
-  repository    = "https://charts.magda.io/"
-  chart         = "magda"
+  repository    = "../.."
+  chart         = "chart"
   version       = var.magda_version
   devel         = var.allow_dev_magda_version
   timeout       = 3600
@@ -136,10 +146,6 @@ resource "helm_release" "magda_helm_release" {
   skip_crds     = false
 
   namespace = var.namespace
-
-  values = [
-    "${file("../../config.yaml")}"
-  ]
 
   set {
     name  = "global.externalUrl"
@@ -195,10 +201,10 @@ resource "helm_release" "magda_helm_release" {
   depends_on = [
     kubernetes_cluster_role_binding.default_service_acc_role_binding,
     kubernetes_namespace.magda_namespace,
-    kubernetes_namespace.magda_openfaas_namespace,
-    kubernetes_namespace.magda_openfaas_fn_namespace,
     kubernetes_secret.auth_secrets,
-    kubernetes_secret.db_passwords
+    kubernetes_secret.db_passwords,
+    helm_release.kr_helm_release,
+    null_resource.update_helm_chart
   ]
 }
 

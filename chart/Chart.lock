@@ -1,0 +1,9 @@
+dependencies:
+- name: magda
+  repository: https://charts.magda.io
+  version: 0.0.57-0
+- name: magda-ckan-connector
+  repository: https://charts.magda.io
+  version: 0.0.57-0
+digest: sha256:2f606cc6d49ef2ea2ab14798892ea22f17d4c4123c51edf657d1b415949042b4
+generated: "2020-08-17T12:29:52.018664+10:00"
