@@ -138,7 +138,6 @@ resource "helm_release" "magda_helm_release" {
   # or repository = "../../helm" for local repo
   repository    = "../.."
   chart         = "chart"
-  version       = var.magda_version
   devel         = var.allow_dev_magda_version
   timeout       = 3600
   force_update  = true
@@ -173,19 +172,8 @@ resource "helm_release" "magda_helm_release" {
   }
 
   set {
-    name  = "magda-core.gateway.service.type"
+    name  = "magda.magda-core.gateway.service.type"
     value = "NodePort"
-  }
-
-  # turn off auto namespace creation as terraform handles it better (and helm provider behave differently)
-  set {
-    name  = "magda-core.openfaas.createMainNamespace"
-    value = false
-  }
-
-  set {
-    name  = "magda-core.openfaas.createFunctionNamespace"
-    value = false
   }
 
   set {
