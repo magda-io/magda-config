@@ -581,7 +581,6 @@ magda:
       # defaultOrganizationId: "abc"
       featureFlags:
         cataloguing: true
-        previewAddDataset: true
         
       vocabularyApiEndpoints:
         - "https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json"
