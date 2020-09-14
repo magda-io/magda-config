@@ -1,11 +1,11 @@
 apiVersion: v2
 name: "magda-config"
 description: ""
-version: "0.0.57-0"
+version: "0.0.57"
 kubeVersion: ">= 1.14.0-0"
 dependencies:
   - name: magda
-    version: 0.0.57-rc.1
+    version: 0.0.57
     repository: https://charts.magda.io
 
   ## Data.gov.au connector to provide some initial data. Remove this if you

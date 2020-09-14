@@ -54,7 +54,7 @@ global:
     # You may explicitly set all connectors to use images from docker hub while load magda-core images from a private docker registry
     image:
       repository: docker.io/data61
-      tag: 0.0.57-0
+      tag: 0.0.57
       pullPolicy: IfNotPresent
       imagePullSecret: false
   ## Specify the shared common settings for all minions

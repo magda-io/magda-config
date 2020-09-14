@@ -4,7 +4,7 @@ This is a simple boilerplate that allows you to quickly set up a Magda instance 
 
 ## ⚠️ Warning: Compatibility Issues  ⚠️
 
-We have upgraded our Terraform module to work with Magda v0.0.57-0 or later (using Helm3 Terraform Provier).
+We have upgraded our Terraform module to work with Magda v0.0.57 or later (using Helm3 Terraform Provier).
 
 If you need the Terraform module to deploy an older version Magda (v0.0.56-RC or earlier), please check out branch [v0.0.56-RC6](https://github.com/magda-io/magda-config/tree/v0.0.56-RC6) and use Terraform module there.
 
@@ -18,7 +18,7 @@ How you get started with Magda will depend on where you're starting from:
 - **I have nothing already set up, and I'm happy to run everything on Google Cloud through Terraform**: Please use the instructions below.
 - **I already have a kubernetes cluster, or want to use a local environment/cloud environment other than Google Cloud, or I just don't like Terraform**: Please use the guide at [existing-k8s.md](./existing-k8s.md). Note that this is a bit harder than just letting terraform do the heavy lifting for you, but you'll also learn more along the way.
 
-> NOTE: Since version `v0.0.57-0`, Magda requires Helm v3 to deploy. The Terraform helm provider has been upgraded to version 1.1.1 to support Helm v3. If you previously deployed an older version (e.g. v0.0.56-RC6) Magda, please refer to [this migration document](https://github.com/magda-io/magda/blob/8979f9e2322c2d94b0c0dcc893f190680667fa35/docs/docs/migration/v0.0.56-RC6-to-v0.0.57-0.md) to upgrade your release before use terraform to upgrade your existing release to a newer version. 
+> NOTE: Since version `v0.0.57`, Magda requires Helm v3 to deploy. The Terraform helm provider has been upgraded to version 1.1.1 to support Helm v3. If you previously deployed an older version (e.g. v0.0.56-RC6) Magda, please refer to [this migration document](https://github.com/magda-io/magda/blob/8979f9e2322c2d94b0c0dcc893f190680667fa35/docs/docs/migration/v0.0.56-RC6-to-v0.0.57-0.md) to upgrade your release before use terraform to upgrade your existing release to a newer version. 
 
 ## Quickstart Instructions - Terraform
 
