@@ -1,0 +1,128 @@
+global:
+  defaultContactEmail: magda-test@googlegroups.com
+  enableMultiTenants: false
+  enablePriorityClass: false
+  exposeNodePorts: false
+  externalUrl: https://demo.dev.magda.io
+  namespace: demo
+  openfaas:
+    enabled: true
+  rollingUpdate:
+    maxUnavailable: 1000
+  connectors:
+    includeInitialJobs: false
+    includeCronJobs: true
+
+tags:
+  all: true
+  ingress: true
+  minion-broken-link: true
+  minion-format: true
+  minion-linked-data-rating: true
+  minion-visualization: true
+
+connector-dga:
+  config:
+    id: dga
+    name: "data.gov.au"
+    sourceUrl: "https://data.gov.au/"
+    pageSize: 1000
+    schedule: "0 0 */3 * *"
+    tenantId: 0
+    ignoreHarvestSources: ["*"]
+
+connector-act:
+  config:
+    id: act
+    name: "ACT Government data.act.gov.au"
+    sourceUrl: "https://data.gov.au/"
+    sourceUrl: http://www.data.act.gov.au/data.json
+    tenantId: 0
+    schedule: "0 0 */3 * *"
+
+magda:
+  magda-core:    
+    combined-db:
+      data:
+        storage: 250Gi
+      resources:
+        limits:
+          cpu: 2000m
+      waleBackup:
+        googleApplicationCreds:
+          fileName: db-service-account-private-key.json
+          secretName: storage-account-credentials
+        gsPrefix: gs://magda-postgres-backups-asia/dev
+        method: NONE
+        readOnly: "TRUE"
+        recoveryMode: immediate
+    content-api:
+      scssVars: '{"magda-color-primary": "#395063", "magda-color-secondary": "#30384d"}'
+    correspondence-api:
+      alwaysSendToDefaultRecipient: true
+      smtpHostname: smtp.mailgun.org
+      smtpPort: 2525
+    elasticsearch:
+      backup:
+        googleApplicationCreds:
+          fileName: db-service-account-private-key.json
+          secretName: storage-account-credentials
+      data:
+        heapSize: 500m
+        pluginsInstall: repository-gcs
+      useGcsSnapshots: false
+    gateway:
+      auth:
+        arcgisClientId: d0MgVUbbg5Z6vmWo
+        ckanAuthenticationUrl: https://data.gov.au/data
+        facebookClientId: "173073926555600"
+        googleClientId: 275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com
+        vanguardWsFedIdpUrl: https://thirdparty.authentication.business.gov.au/fas/v2/wsfed12/authenticate
+        vanguardWsFedRealm: https://environment.magda.io/integration-test-2
+      autoscaler:
+        enabled: false
+      cors:
+        credentials: true
+        origin: true
+      csp:
+        directives:
+          objectSrc:
+          - '''''none'''''
+          reportUri: https://sdga.report-uri.com/r/d/csp/enforce
+          scriptSrc:
+          - '''''self'''''
+          - '''''unsafe-inline'''''
+          - browser-update.org
+      enableAuthEndpoint: true
+      enableHttpsRedirection: true
+      helmet:
+        frameguard: false
+    indexer:
+      elasticsearch:
+        gcsSnapshotBucket: magda-es-snapshots-dev
+        gcsSnapshotClient: default
+        useGcsSnapshots: true
+      makeSnapshots: false
+      readSnapshots: false
+      resources:
+        requests:
+          cpu: 100m
+          memory: 0
+    ingress:
+      enableTls: true
+      hostname: demo.dev.magda.io
+      ingressClass: nginx
+      useDefaultCertificate: true
+    minion-broken-link:
+      domainWaitTimeConfig:
+        data.act.gov.au: 30
+        data.csiro.au: 5
+        data.gov.au: 5
+    web-server:
+      featureFlags:
+        cataloguing: true
+        previewAddDataset: true
+      vocabularyApiEndpoints:
+      - https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json
+      - https://vocabs.ands.org.au/repository/api/lda/neii/australian-landscape-water-balance/version-1/concept.json
+      - https://vocabs.ands.org.au/repository/api/lda/ands-nc/controlled-vocabulary-for-resource-type-genres/version-1-1/concept.json

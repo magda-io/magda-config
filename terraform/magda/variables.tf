@@ -63,6 +63,18 @@ variable "jwt_secret" {
   default     = null
 }
 
+variable "storage_access_key" {
+  description = "The storage_access_key; Will auto created if not specfied"
+  type        = string
+  default     = null
+}
+
+variable "storage_access_key_secret" {
+  description = "The storage_access_key_secret; Will auto created if not specfied"
+  type        = string
+  default     = null
+}
+
 variable "session_secret" {
   description = "The session_secret; Will auto created if not specfied"
   type        = string

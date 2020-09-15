@@ -12,5 +12,3 @@ credential_file_path = "./key.json"
 
 # Set to a valid domain (e.g. "xxx.xx.com") to access instance through https
 # external_domain = "xxx.xx.com"
-
-magda_version = "0.0.56-RC5"
