@@ -78,13 +78,6 @@ dependencies:
   #   tags:
   #     - connectors
   #     - connector-hobart
-  # - name: magda-project-open-data-connector
-  #   version: 0.0.57-0
-  #   alias: connector-launceston
-  #   repository: https://charts.magda.io
-  #   tags:
-  #     - connectors
-  #     - connector-launceston
   # - name: magda-csw-connector
   #   version: 0.0.57-0
   #   alias: connector-marlin
@@ -120,13 +113,6 @@ dependencies:
   #   tags:
   #     - connectors
   #     - connector-logan
-  # - name: magda-project-open-data-connector
-  #   version: 0.0.57-0
-  #   alias: connector-melbournewater
-  #   repository: https://charts.magda.io
-  #   tags:
-  #     - connectors
-  #     - connector-melbournewater
   # - name: magda-project-open-data-connector
   #   version: 0.0.57-0
   #   alias: connector-melbourne
@@ -183,13 +169,6 @@ dependencies:
   #   tags:
   #     - connectors
   #     - connector-sa
-  # - name: magda-project-open-data-connector
-  #   version: 0.0.57-0
-  #   alias: connector-southerngrampians
-  #   repository: https://charts.magda.io
-  #   tags:
-  #     - connectors
-  #     - connector-southerngrampians
   # - name: magda-csw-connector
   #   version: 0.0.57-0
   #   alias: connector-listtas
@@ -241,14 +220,22 @@ dependencies:
   #     - connector-nt-darwin
   # - name: magda-project-open-data-connector
   #   version: 0.0.57-0
+  #   alias: connector-gbrmpa
+  #   repository: https://charts.magda.io
+  #   tags:
+  #     - connectors
+  #     - connector-gbrmpa
+  # - name: magda-project-open-data-connector
+  #   version: 0.0.57-0
   #   alias: connector-southern-grampians
   #   repository: https://charts.magda.io
   #   tags:
   #     - connectors
   #     - connector-southern-grampians
-  # - name: magda-esri-portal-connector
+  # - name: magda-project-open-data-connector
   #   version: 0.0.57-0
-  #   alias: connector-esri-nsw
+  #   alias: connector-launceston
   #   repository: https://charts.magda.io
   #   tags:
-  #     - connector-esri-nsw
+  #     - connectors
+  #     - connector-launceston
