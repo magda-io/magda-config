@@ -646,12 +646,6 @@ magda:
 #     name: City of Hobart Open Data Portal
 #     sourceUrl: https://data-1-hobartcc.opendata.arcgis.com/data.json
 
-# connector-launceston:
-#   config:
-#     id: launceston
-#     name: City of Launceston Open Data
-#     sourceUrl: https://data-launceston.opendata.arcgis.com/data.json
-
 # connector-marlin:
 #   config:
 #     id: marlin
@@ -685,12 +679,6 @@ magda:
 #     id: logan
 #     name: Logan City Council
 #     sourceUrl: https://data-logancity.opendata.arcgis.com/data.json
-
-# connector-melbournewater:
-#   config:
-#     id: melbournewater
-#     name: Melbourne Water Corporation
-#     sourceUrl: https://data-melbournewater.opendata.arcgis.com/data.json
 
 # connector-melbourne:
 #   config:
@@ -746,12 +734,6 @@ magda:
 #     sourceUrl: https://data.sa.gov.au/data/
 #     pageSize: 100
 
-# connector-southerngrampians:
-#   config:
-#     id: southerngrampians
-#     name: Southern Grampians Shire Council Smart City and Open Data portal
-#     sourceUrl: https://www.connectgh.com.au/data.json
-
 # connector-listtas:
 #   config:
 #     id: listtas
@@ -804,3 +786,15 @@ magda:
 #     id: southern-grampians
 #     name: Southern Grampians Shire Council
 #     sourceUrl: https://www.connectgh.com.au/data.json
+
+# connector-gbrmpa:
+#   config:
+#     id: gbrmpa
+#     name: GBRMPA Geoportal
+#     sourceUrl: https://geoportal.gbrmpa.gov.au/data.json
+
+# connector-launceston:
+#   config:
+#     id: launceston
+#     name: City of Launceston Open Data
+#     sourceUrl: https://data-launceston.opendata.arcgis.com/data.json
