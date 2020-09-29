@@ -42,7 +42,7 @@ global:
     # imagePullSecret: ""
 
   ## Specify the shared common settings for all connectors
-  connectors:
+  # connectors:
 
     ## Whether to run an initial job to crawl all these on install
     ## includeInitialJobs: false
@@ -52,28 +52,28 @@ global:
 
     # Set default image setting for all connectors. 
     # You may explicitly set all connectors to use images from docker hub while load magda-core images from a private docker registry
-    image:
-      repository: docker.io/data61
-      tag: 0.0.57
-      pullPolicy: IfNotPresent
-      imagePullSecret: false
+    # image:
+    #   repository: docker.io/data61
+    #   tag: 0.0.57-0
+    #   pullPolicy: IfNotPresent
+    #   imagePullSecret: false
   ## Specify the shared common settings for all minions
-  minions:
+  # minions:
     # Set default image setting for all minions. 
     # You may explicitly set all minions to use images from docker hub while load magda-core images from a private docker registry
-    image:
-      repository: docker.io/data61
-      tag: 0.0.57-0
-      pullPolicy: IfNotPresent
-      imagePullSecret: false
+    # image:
+    #   repository: docker.io/data61
+    #   tag: 0.0.57-0
+    #   pullPolicy: IfNotPresent
+    #   imagePullSecret: false
 
   ## Specify the shared common settings for all URL processor functions
-  urlProcessors:
-    image:
-      repository: docker.io/data61
-      tag: 0.0.57-0
-      pullPolicy: IfNotPresent
-      imagePullSecret: false
+  # urlProcessors:
+  #   image:
+  #     repository: docker.io/data61
+  #     tag: 0.0.57-0
+  #     pullPolicy: IfNotPresent
+  #     imagePullSecret: false
 
   ## Whether to expose the node ports of the pods in the cluster - useful for
   ## development, because it allows you to connect directly to pods without using
