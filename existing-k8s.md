@@ -21,6 +21,8 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 ```
 You need to unset your `NODE_OPTIONS` env variable if you run into `Pkg: FLAGS_MISMATCH` while running the secrets script.
 
+> If the pre-build binary doesn't work for your local environment, you can also clone [Magda Main Repo](https://github.com/magda-io/magda), run `yarn install` and then `yarn create-secrets`
+
 Output should look something like so:
 ```
 magda-create-secrets tool 
