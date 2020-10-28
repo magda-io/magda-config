@@ -11,17 +11,17 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 5. Look at [values.yaml](./chart/values.yaml) and make sure to customise the uncommented lines. Everything else can be left as default for now.
 
-6. Run the create secrets script in a command line and follow the prompts
-```bash
-    ./create-secrets/index-linux
-    # OR
-    ./create-secrets/index-macos
-    # OR
-    create-secrets\index.win.exe
-```
-You need to unset your `NODE_OPTIONS` env variable if you run into `Pkg: FLAGS_MISMATCH` while running the secrets script.
+6. Install `create-secrets` tool (if you haven't):
 
-> If the pre-build binary doesn't work for your local environment, you can also clone [Magda Main Repo](https://github.com/magda-io/magda), run `yarn install` and then `yarn create-secrets`
+```
+npm install --global @magda/create-secrets
+```
+
+After the installation, simply run `create-secrets` command anywhere from your commandline:
+
+```
+$ create-secrets
+```
 
 Output should look something like so:
 ```
