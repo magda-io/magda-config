@@ -241,24 +241,22 @@ Use `kubectl get pods` to see all of the running containers and `kubectl logs -f
 ## FAQ
 ### How do I make myself an admin?
 This is harder than it should be at this point.
-1. Log in
-2. Use `kubectl port-forward combined-db-0 5432 -n <your-namespace>` to get a connection to the database
-3. Get your db password out of the `db-passwords` secret - in bash you can use 
+1. Use `kubectl port-forward combined-db-0 5432 -n <your-namespace>` to get a connection to the database
+2. Get your db password out of the `db-passwords` secret - in bash you can use 
 ```bash
 kubectl get secrets db-passwords -o yaml -n <your namespace> | grep authorization-db: | awk '{print $2}' | base64 -D
 ```
 or you can just use `kubectl get secrets db-passwords -o yaml -n <your namespace>` to get the secret then base64 decode it to get the password.
-4. Open your postgres management tool of choice (e.g. pgadmin4) Use that password to log in to the database (on port 5432) with user `postgres`.
-5. Go to the authorization-db, find the users table, find yourself and set `isAdmin` to `true`.
+3. Use [acs-cmd](https://www.npmjs.com/package/@magda/acs-cmd) to set / unset a user as an admin
 
 ### Where's the admin UI?
-We still don't have a good one - there's a first prototype at `/auth/admin` and a second prototype at `/admin`. In either case you need to be an admin before you can access it.
+
+After login as an Admin user, you will see the `Admin` button on your account details page.
 
 ### How do I authorise API access?
-Currently we don't have a good way of doing this other than logging in manually and getting the cookie. We'd love a PR for this!
-
+Please refer to [How to create API key](https://github.com/magda-io/magda/blob/master/docs/docs/how-to-create-api-key.md) doc for more information of accessing APIs with an API key.
 ### How do I add a new dataset
-You can access this at `/dataset/add` after turning `web-server.featureFlags.cataloguing` to true in `values.yaml`, and making yourself an admin. Note that this is very much a work in progress, and we've only designed it to take into account the needs of the Australian government so far.
+After login as an admin user, you will see a button for creating a new dataset on `Home Page`.
 
 ## Troubleshooting
 - If something goes wrong, often you can fix it by just running `terraform apply` again.

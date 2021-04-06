@@ -73,12 +73,18 @@ magda:
       useGcsSnapshots: false
     gateway:
       auth:
-        arcgisClientId: d0MgVUbbg5Z6vmWo
-        ckanAuthenticationUrl: https://data.gov.au/data
         facebookClientId: "173073926555600"
-        googleClientId: 275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com
         vanguardWsFedIdpUrl: https://thirdparty.authentication.business.gov.au/fas/v2/wsfed12/authenticate
         vanguardWsFedRealm: https://environment.magda.io/integration-test-2
+      authPlugins:
+      - key: google
+        baseUrl: http://magda-auth-google
+      - key: ckan
+        baseUrl: http://magda-auth-ckan
+      - key: internal
+        baseUrl: http://magda-auth-internal
+      - key: arcgis
+        baseUrl: http://magda-auth-arcgis
       autoscaler:
         enabled: false
       cors:
@@ -87,11 +93,11 @@ magda:
       csp:
         directives:
           objectSrc:
-          - '''''none'''''
+          - "'none'"
           reportUri: https://sdga.report-uri.com/r/d/csp/enforce
           scriptSrc:
-          - '''''self'''''
-          - '''''unsafe-inline'''''
+          - "'self'"
+          - "'unsafe-inline'"
           - browser-update.org
       enableAuthEndpoint: true
       enableHttpsRedirection: true
@@ -126,3 +132,21 @@ magda:
       - https://vocabs.ands.org.au/repository/api/lda/abares/australian-land-use-and-management-classification/version-8/concept.json
       - https://vocabs.ands.org.au/repository/api/lda/neii/australian-landscape-water-balance/version-1/concept.json
       - https://vocabs.ands.org.au/repository/api/lda/ands-nc/controlled-vocabulary-for-resource-type-genres/version-1-1/concept.json
+
+# auth plugin for google
+magda-auth-google:
+  googleClientId: "275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com"
+
+magda-auth-ckan:
+  ckanUrl: "https://data.gov.au/data"
+  authPluginConfig:
+    name: "Data.gov.au"
+    loginFormExtraInfoHeading: "Register"
+    loginFormExtraInfoContent: "To register a new [data.gov.au](https://data.gov.au/) account, [click here](https://data.gov.au/data/user/register)"
+
+magda-auth-internal:
+  authPluginConfig:
+    loginFormExtraInfoContent: "Forgot your password? Email [magda-test@googlegroups.com](magda-test@googlegroups.com)"
+
+magda-auth-arcgis:
+  arcgisClientId: "d0MgVUbbg5Z6vmWo"

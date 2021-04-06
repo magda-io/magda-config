@@ -1,5 +1,5 @@
 # Getting Started on an Existing Kubernetes Instance
-Before you start you need to get a Kubernetes cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop), [Minikube](https://kubernetes.io/docs/setup/minikube/) or [k3d](). Either way make sure the VM has at least 2 CPUs and 6GB of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/). Make sure that whatever you use has a Kubernetes version of no higher than 1.15 at this point - we'll support higher versions in the next release.
+Before you start you need to get a Kubernetes cluster. If you just want to give this a try locally, you can use [Docker for Desktop](https://www.docker.com/products/docker-desktop), [Minikube](https://kubernetes.io/docs/setup/minikube/) or [k3d](). Either way make sure the VM has at least 2 CPUs and 6GB of RAM. Alternatively you can run this in the cloud - we use [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/). Make sure that whatever you use has a Kubernetes version <= 1.16.
 
 1. Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and [helm 3](https://github.com/helm/helm/releases).
 
@@ -11,15 +11,17 @@ Before you start you need to get a Kubernetes cluster. If you just want to give 
 
 5. Look at [values.yaml](./chart/values.yaml) and make sure to customise the uncommented lines. Everything else can be left as default for now.
 
-6. Run the create secrets script in a command line and follow the prompts
-```bash
-    ./create-secrets/index-linux
-    # OR
-    ./create-secrets/index-macos
-    # OR
-    create-secrets\index.win.exe
+6. Install `create-secrets` tool (if you haven't):
+
 ```
-You need to unset your `NODE_OPTIONS` env variable if you run into `Pkg: FLAGS_MISMATCH` while running the secrets script.
+npm install --global @magda/create-secrets
+```
+
+After the installation, simply run `create-secrets` command anywhere from your commandline:
+
+```
+$ create-secrets
+```
 
 Output should look something like so:
 ```
@@ -61,7 +63,7 @@ helm dep up ./chart
 
 9. Install magda
 ```bash
-helm upgrade --install --timeout 9999s --debug --wait magda ./chart
+helm upgrade --install --timeout 9999s --debug magda ./chart
 ```
 
 This will take a while for it to get everything set up.
@@ -89,5 +91,5 @@ helm repo update
 
 3. Run:
 ```
-helm upgrade --install --timeout 9999s --debug --wait magda ./chart
+helm upgrade --install --timeout 9999s --debug magda ./chart
 ```
