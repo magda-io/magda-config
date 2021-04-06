@@ -1,12 +1,24 @@
 dependencies:
 - name: magda
   repository: https://charts.magda.io
-  version: 0.0.57
+  version: 0.0.60-alpha.3
+- name: magda-auth-google
+  repository: https://charts.magda.io
+  version: 1.0.1
+- name: magda-auth-ckan
+  repository: https://charts.magda.io
+  version: 1.0.1
+- name: magda-auth-internal
+  repository: https://charts.magda.io
+  version: 1.0.1
+- name: magda-auth-arcgis
+  repository: https://charts.magda.io
+  version: 1.0.1
 - name: magda-ckan-connector
   repository: https://charts.magda.io
   version: 0.0.57-0
 - name: magda-project-open-data-connector
   repository: https://charts.magda.io
   version: 0.0.57-0
-digest: sha256:a288f7a28d9d992970601a638c7e7ad0c05f1a57d523d9d6e5d9410c3dc7eb0a
-generated: "2020-09-15T18:28:36.837913+10:00"
+digest: sha256:3c6508b008213360c7b380deff3768c0600662a191ff51a6c7683a55b5c85632
+generated: "2021-04-07T09:07:12.366354+10:00"
