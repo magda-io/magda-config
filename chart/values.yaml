@@ -1,4 +1,5 @@
 ## Global settings affect all services
+## More configurable options please refer to https://github.com/magda-io/magda/blob/master/docs/docs/helm-charts-docs-index.md
 global:
   ## Whether to used the combined db - if this is true all the databases used
   ## by magda will be consolidated into a single pod. If it's false, they'll
