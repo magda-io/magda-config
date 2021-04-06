@@ -99,6 +99,7 @@ magda:
           - "'self'"
           - "'unsafe-inline'"
           - browser-update.org
+          - www.google-analytics.com
       enableAuthEndpoint: true
       enableHttpsRedirection: true
       helmet:
