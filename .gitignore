@@ -1,3 +1,4 @@
 key.json
 *.tfstate*
 chart/charts/
+.DS_Store
