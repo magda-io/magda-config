@@ -1,5 +1,7 @@
 global:
   defaultContactEmail: magda-test@googlegroups.com
+  useCombinedDb: true
+  useCloudSql: false
   enableMultiTenants: false
   enablePriorityClass: false
   exposeNodePorts: false
@@ -16,7 +18,7 @@ global:
 tags:
   all: true
   ingress: true
-  minion-broken-link: true
+  minion-broken-link: false
   minion-format: true
   minion-linked-data-rating: true
   minion-visualization: true
@@ -47,14 +49,6 @@ magda:
       resources:
         limits:
           cpu: 2000m
-      waleBackup:
-        googleApplicationCreds:
-          fileName: db-service-account-private-key.json
-          secretName: storage-account-credentials
-        gsPrefix: gs://magda-postgres-backups-asia/dev
-        method: NONE
-        readOnly: "TRUE"
-        recoveryMode: immediate
     content-api:
       scssVars: '{"magda-color-primary": "#395063", "magda-color-secondary": "#30384d"}'
     correspondence-api:
@@ -62,29 +56,22 @@ magda:
       smtpHostname: smtp.mailgun.org
       smtpPort: 2525
     elasticsearch:
-      backup:
-        googleApplicationCreds:
-          fileName: db-service-account-private-key.json
-          secretName: storage-account-credentials
       data:
         heapSize: 500m
-        pluginsInstall: repository-gcs
         storage: 200Gi
       useGcsSnapshots: false
     gateway:
-      auth:
-        facebookClientId: "173073926555600"
-        vanguardWsFedIdpUrl: https://thirdparty.authentication.business.gov.au/fas/v2/wsfed12/authenticate
-        vanguardWsFedRealm: https://environment.magda.io/integration-test-2
       authPlugins:
       - key: google
         baseUrl: http://magda-auth-google
-      - key: ckan
-        baseUrl: http://magda-auth-ckan
+      - key: facebook
+        baseUrl: http://magda-auth-facebook
       - key: internal
         baseUrl: http://magda-auth-internal
       - key: arcgis
         baseUrl: http://magda-auth-arcgis
+      - key: vanguard
+        baseUrl: http://magda-auth-vanguard
       autoscaler:
         enabled: false
       cors:
@@ -105,10 +92,6 @@ magda:
       helmet:
         frameguard: false
     indexer:
-      elasticsearch:
-        gcsSnapshotBucket: magda-es-snapshots-dev
-        gcsSnapshotClient: default
-        useGcsSnapshots: true
       makeSnapshots: false
       readSnapshots: false
       resources:
@@ -138,16 +121,16 @@ magda:
 magda-auth-google:
   googleClientId: "275237095477-f7ej2gsvbl2alb8bcqcn7r5jk0ur719p.apps.googleusercontent.com"
 
-magda-auth-ckan:
-  ckanUrl: "https://data.gov.au/data"
-  authPluginConfig:
-    name: "Data.gov.au"
-    loginFormExtraInfoHeading: "Register"
-    loginFormExtraInfoContent: "To register a new [data.gov.au](https://data.gov.au/) account, [click here](https://data.gov.au/data/user/register)"
-
 magda-auth-internal:
   authPluginConfig:
     loginFormExtraInfoContent: "Forgot your password? Email [magda-test@googlegroups.com](magda-test@googlegroups.com)"
 
 magda-auth-arcgis:
   arcgisClientId: "d0MgVUbbg5Z6vmWo"
+
+magda-auth-facebook:
+  clientId: "173073926555600"
+
+magda-auth-vanguard:
+  vanguardWsFedIdpUrl: "https://thirdparty.authentication.business.gov.au/fas/v2/wsfed12/authenticate"
+  vanguardWsFedRealm: "https://environment.magda.io/integration-test-2"
