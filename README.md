@@ -11,7 +11,7 @@ If you need the Terraform module to deploy an older version Magda (v0.0.56-RC or
 ## ⚠️ Warning: Work in Progress ⚠️
 With this repo we're trying to make it as easy to get started with Magda as possible... but we're not there yet. To setup Magda in a similar configuration to [data.gov.au](https://data.gov.au) (i.e. an openly-available, pure-open-data search engine) is _fairly_ simple, but using other features (e.g. Add Dataset, the Admin UI) will almost certainly result in getting stuck in some way that requires Kubernetes skills to get out of.
 
-This doesn't mean you shouldn't try, and we're happy to answer any questions you have on our [Spectrum Forum](https://spectrum.chat/magda). Just be aware that at best, this repo works a bit like a Linux installer - it can get you started easily, but if you want to mess around you'll still have to learn how it works.
+This doesn't mean you shouldn't try, and we're happy to answer any questions you have on our [Github Discussions Forum](https://github.com/magda-io/magda/discussions). Just be aware that at best, this repo works a bit like a Linux installer - it can get you started easily, but if you want to mess around you'll still have to learn how it works.
 
 ## Getting Started
 How you get started with Magda will depend on where you're starting from:
