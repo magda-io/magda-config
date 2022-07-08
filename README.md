@@ -1,6 +1,6 @@
 # Magda Config
 
-This is a simple boilerplate that allows you to quickly set up a Magda instance - the idea is that you can fork this config, commit changes but keep merging in master in order to stay up to date.
+This is a simple boilerplate that allows you to quickly set up a Magda instance - the idea is that you can fork this config, commit changes but keep merging in master in order to stay up to date. If you are new to Magda, you might also be interested in [our tutorial repo](https://github.com/magda-io/magda-brown-bag).
 
 ## ⚠️ Warning: Compatibility Issues  ⚠️
 
@@ -16,7 +16,7 @@ This doesn't mean you shouldn't try, and we're happy to answer any questions you
 ## Getting Started
 How you get started with Magda will depend on where you're starting from:
 - **I have nothing already set up, and I'm happy to run everything on Google Cloud through Terraform**: Please use the instructions below.
-- **I already have a kubernetes cluster, or want to use a local environment/cloud environment other than Google Cloud, or I just don't like Terraform**: Please use the guide at [existing-k8s.md](./existing-k8s.md). Note that this is a bit harder than just letting terraform do the heavy lifting for you, but you'll also learn more along the way.
+- **I already have a kubernetes cluster, or want to use a local environment/cloud environment other than Google Cloud, or I just don't like Terraform**: Please have a look at [our tutorial repo](https://github.com/magda-io/magda-brown-bag).
 
 > NOTE: Since version `v0.0.57`, Magda requires Helm v3 to deploy. The Terraform helm provider has been upgraded to version 1.1.1 to support Helm v3. If you previously deployed an older version (e.g. v0.0.56-RC6) Magda, please refer to [this migration document](https://github.com/magda-io/magda/blob/8979f9e2322c2d94b0c0dcc893f190680667fa35/docs/docs/migration/v0.0.56-RC6-to-v0.0.57-0.md) to upgrade your release before use terraform to upgrade your existing release to a newer version. 
 
@@ -235,8 +235,10 @@ Use `kubectl get pods` to see all of the running containers and `kubectl logs -f
 - Sign up for an API key on Facebook or Google, and put your client secret in terraform.tfvars and your client id in [values.yaml](./chart/values.yaml) to enable signing in via OAuth.
 - Configure an SMTP server in terraform.tfvars and [values.yaml](./chart/values.yaml) and switch the `correspondence` flag to true in order to be able to send emails from the app.
 - Set `scssVars` in [values.yaml](./chart/values.yaml) to change the colours
-- Ask us questions on https://spectrum.chat/magda
+- Ask us questions on https://github.com/magda-io/magda/discussions
 - Send us an email at contact@magda.io to tell us about your new Magda server.
+
+You might also be interested in [our tutorial repo](https://github.com/magda-io/magda-brown-bag) which will not only help you to get familiar with more advanced configuration but also give you a quick registry API tour.
 
 ## FAQ
 ### How do I make myself an admin?
