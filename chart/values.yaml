@@ -50,7 +50,9 @@ magda:
         limits:
           cpu: 2000m
     content-api:
-      scssVars: '{"magda-color-primary": "#395063", "magda-color-secondary": "#30384d"}'
+      scssVars: 
+        magda-color-primary: "#395063"
+        magda-color-secondary: "#30384d"
     correspondence-api:
       alwaysSendToDefaultRecipient: true
       smtpHostname: smtp.mailgun.org
