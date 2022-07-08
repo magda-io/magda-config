@@ -1,26 +1,17 @@
 apiVersion: v2
 name: "magda-config"
 description: ""
-version: "0.0.59"
-kubeVersion: ">= 1.14.0-0"
+version: "1.3.1"
+kubeVersion: ">= 1.19.0-0"
 dependencies:
   - name: magda
-    version: 0.0.59
+    version: "1.3.1-rc.0"
     repository: https://charts.magda.io
-
-  ## Ckan Authentication Plugin Config
-  # See https://github.com/magda-io/magda/blob/master/docs/docs/authentication-plugin-spec.md
-  - name: magda-auth-ckan
-    version: 1.0.1
-    repository: https://charts.magda.io
-    tags:
-      - all
-      - magda-auth-ckan
 
   ## Data.gov.au connector to provide some initial data. Remove this if you
   ## don't want any data.gov.au connector
   - name: magda-ckan-connector
-    version: 0.0.57-0
+    version: "1.3.0"
     alias: connector-dga
     repository: https://charts.magda.io
     tags:
